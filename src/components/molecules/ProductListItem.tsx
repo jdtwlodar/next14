@@ -8,9 +8,9 @@ type ProductListItemProps = {
 
 export const ProductListItem = ({ product }: ProductListItemProps) => {
 	return (
-		<div className="group relative">
+		<li className="group relative">
 			<ProductCoverImage {...product.coverImage} />
 			<ProductListItemDescription product={product} />
-		</div>
+		</li>
 	);
 };
