@@ -1,5 +1,6 @@
 export type ProductItemType = {
-	id: number;
+	description: string;
+	id: string;
 	category: string;
 	name: string;
 	price: number;
@@ -7,4 +8,5 @@ export type ProductItemType = {
 		src: string;
 		alt: string;
 	};
+	longDescription: string;
 };
