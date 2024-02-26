@@ -1,4 +1,5 @@
 "use client";
+import { type UrlObject } from "url";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -13,7 +14,7 @@ export function ActiveLink<T extends string>({
 	exact = true,
 	...props
 }: {
-	href: Route<T> | URL;
+	href: UrlObject | Route<T>;
 	children: React.ReactNode;
 	className: string;
 	activeClassName: string;
