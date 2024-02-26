@@ -1,16 +1,17 @@
 import { Suspense } from "react";
-import { getProductById } from "@/api/products";
+import { getProductById, getProductsList } from "@/api/products";
 import { ProductCoverImage } from "@/components/atoms/ProductListCoverImage";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
 import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
 import { Loader } from "@/components/atoms/Loader";
 
-/* export const generateStaticParams = async () => {
+export const generateStaticParams = async () => {
 	const products = await getProductsList();
-	return products.map((product) => ({
+	const slicedProducts = products.slice(0, 10);
+	return slicedProducts.map((product) => ({
 		productId: product.id,
 	}));
-}; */
+};
 
 export const generateMetadata = async ({ params }: { params: { productId: string } }) => {
 	const product = await getProductById(params.productId);
