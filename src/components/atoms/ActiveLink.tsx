@@ -1,5 +1,4 @@
 "use client";
-import { type UrlObject } from "url";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -14,7 +13,7 @@ export function ActiveLink<T extends string>({
 	exact = true,
 	...props
 }: {
-	href: UrlObject | Route<T>;
+	href: Route<T>;
 	children: React.ReactNode;
 	className: string;
 	activeClassName: string;
@@ -23,8 +22,7 @@ export function ActiveLink<T extends string>({
 	props?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
 }) {
 	const pathname = usePathname();
-	const matchedPathname = (typeof href === "string" ? href : href.pathname) ?? null;
-	const isActive = exact ? pathname === matchedPathname : pathname.startsWith(matchedPathname);
+	const isActive = exact ? pathname === href : pathname.startsWith(href);
 	return (
 		<Link
 			href={href}
