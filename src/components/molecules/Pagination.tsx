@@ -30,6 +30,9 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage }: Paginat
 
 	return (
 		<nav aria-label="pagination" className="mx-auto my-4">
+			{totalPages}
+			{totalProducts}
+			{itemsPerPage}
 			<ul className="mx-auto flex justify-center space-x-2">
 				{currentPage > 1 && (
 					<>
