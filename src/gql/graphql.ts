@@ -273,6 +273,13 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
+export type CollectionsGetListQueryVariables = Exact<{
+  count: Scalars['Int']['input'];
+}>;
+
+
+export type CollectionsGetListQuery = { collections: { data: Array<{ description: string, name: string }> } };
+
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -289,10 +296,24 @@ export type ProductsGetByCategorySlugQueryVariables = Exact<{
 
 export type ProductsGetByCategorySlugQuery = { category?: { name: string, description: string, products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> }> } | null };
 
+export type ProductsGetByCollectionSlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type ProductsGetByCollectionSlugQuery = { collection?: { description: string, id: string, name: string, slug: string, products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> }> } | null };
+
 export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> }> } };
+
+export type ProductsGetListSuggestedByCategoryQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type ProductsGetListSuggestedByCategoryQuery = { category?: { products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> }> } | null };
 
 export type ProductsGetListWithPaginationQueryVariables = Exact<{
   count: Scalars['Int']['input'];
@@ -351,6 +372,16 @@ export const ProductsListItemFragmentFragmentDoc = new TypedDocumentString(`
   price
 }
     `, {"fragmentName":"ProductsListItemFragment"}) as unknown as TypedDocumentString<ProductsListItemFragmentFragment, unknown>;
+export const CollectionsGetListDocument = new TypedDocumentString(`
+    query CollectionsGetList($count: Int!) {
+  collections(take: $count) {
+    data {
+      description
+      name
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetListQuery, CollectionsGetListQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   product(id: $id) {
@@ -397,6 +428,32 @@ export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
+export const ProductsGetByCollectionSlugDocument = new TypedDocumentString(`
+    query ProductsGetByCollectionSlug($slug: String!) {
+  collection(slug: $slug) {
+    description
+    id
+    name
+    slug
+    products {
+      ...ProductsListItemFragment
+    }
+  }
+}
+    fragment ProductsListItemFragment on Product {
+  id
+  name
+  categories {
+    name
+  }
+  images {
+    url
+    alt
+    width
+    height
+  }
+  price
+}`) as unknown as TypedDocumentString<ProductsGetByCollectionSlugQuery, ProductsGetByCollectionSlugQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList {
   products(take: 10) {
@@ -419,6 +476,28 @@ export const ProductsGetListDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ProductsGetListSuggestedByCategoryDocument = new TypedDocumentString(`
+    query ProductsGetListSuggestedByCategory($slug: String!) {
+  category(slug: $slug) {
+    products {
+      ...ProductsListItemFragment
+    }
+  }
+}
+    fragment ProductsListItemFragment on Product {
+  id
+  name
+  categories {
+    name
+  }
+  images {
+    url
+    alt
+    width
+    height
+  }
+  price
+}`) as unknown as TypedDocumentString<ProductsGetListSuggestedByCategoryQuery, ProductsGetListSuggestedByCategoryQueryVariables>;
 export const ProductsGetListWithPaginationDocument = new TypedDocumentString(`
     query ProductsGetListWithPagination($count: Int!) {
   products(take: $count) {

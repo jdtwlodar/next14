@@ -26,10 +26,11 @@ export default async function CategoryProductPage({
 				<div className="mx-auto max-w-7xl px-8">
 					<div className="mx-auto py-8">
 						<h1 className="text-bold">{category.name}</h1>
+						<div className="py-2 text-center">{category.description}</div>
 					</div>
 				</div>
 			</div>
-			<div className="p-4 text-center">{category.description}</div>
+
 			<div className="bg-white">
 				<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 					<ProductsList

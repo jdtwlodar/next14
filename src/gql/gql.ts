@@ -14,14 +14,21 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "query CollectionsGetList($count: Int!) {\n  collections(take: $count) {\n    data {\n      description\n      name\n    }\n  }\n}": types.CollectionsGetListDocument,
     "query ProductGetById($id: ID!) {\n  product(id: $id) {\n    ...ProductSingleItemFragment\n  }\n}": types.ProductGetByIdDocument,
     "fragment ProductSingleItemFragment on Product {\n  id\n  name\n  description\n  categories {\n    name\n  }\n  images {\n    url\n    alt\n    width\n    height\n  }\n  price\n  rating\n}": types.ProductSingleItemFragmentFragmentDoc,
     "query ProductsGetByCategorySlug($slug: String!) {\n  category(slug: $slug) {\n    name\n    description\n    products {\n      ...ProductsListItemFragment\n    }\n  }\n}": types.ProductsGetByCategorySlugDocument,
+    "query ProductsGetByCollectionSlug($slug: String!) {\n  collection(slug: $slug) {\n    description\n    id\n    name\n    slug\n    products {\n      ...ProductsListItemFragment\n    }\n  }\n}": types.ProductsGetByCollectionSlugDocument,
     "query ProductsGetList {\n  products(take: 10) {\n    data {\n      ...ProductsListItemFragment\n    }\n  }\n}": types.ProductsGetListDocument,
+    "query ProductsGetListSuggestedByCategory($slug: String!) {\n  category(slug: $slug) {\n    products {\n      ...ProductsListItemFragment\n    }\n  }\n}": types.ProductsGetListSuggestedByCategoryDocument,
     "query ProductsGetListWithPagination($count: Int!) {\n  products(take: $count) {\n    data {\n      ...ProductsListItemFragment\n    }\n    meta {\n      count\n      total\n    }\n  }\n}": types.ProductsGetListWithPaginationDocument,
     "fragment ProductsListItemFragment on Product {\n  id\n  name\n  categories {\n    name\n  }\n  images {\n    url\n    alt\n    width\n    height\n  }\n  price\n}": types.ProductsListItemFragmentFragmentDoc,
 };
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query CollectionsGetList($count: Int!) {\n  collections(take: $count) {\n    data {\n      description\n      name\n    }\n  }\n}"): typeof import('./graphql').CollectionsGetListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -37,7 +44,15 @@ export function graphql(source: "query ProductsGetByCategorySlug($slug: String!)
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "query ProductsGetByCollectionSlug($slug: String!) {\n  collection(slug: $slug) {\n    description\n    id\n    name\n    slug\n    products {\n      ...ProductsListItemFragment\n    }\n  }\n}"): typeof import('./graphql').ProductsGetByCollectionSlugDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "query ProductsGetList {\n  products(take: 10) {\n    data {\n      ...ProductsListItemFragment\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductsGetListSuggestedByCategory($slug: String!) {\n  category(slug: $slug) {\n    products {\n      ...ProductsListItemFragment\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListSuggestedByCategoryDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

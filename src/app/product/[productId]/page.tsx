@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getProductById, getProductsList } from "@/api/products";
 import { ProductSingleImage } from "@/components/atoms/ProductSingleImage";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
+import { Loader } from "@/components/atoms/Loader";
+import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -39,11 +42,11 @@ export default async function SingleProductPage({ params }: { params: { productI
 					{product.images[0] && <ProductSingleImage {...product.images[0]} />}
 					<ProductListItemDescription product={product} />
 				</article>
-				{/* <aside>
+				<aside>
 					<Suspense fallback={<Loader />}>
 						<SuggestedProducts />
 					</Suspense>
-				</aside> */}
+				</aside>
 			</div>
 		</div>
 	);

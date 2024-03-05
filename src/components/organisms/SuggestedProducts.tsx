@@ -8,5 +8,12 @@ export const SuggestedProducts = async () => {
 		throw new Error("No products");
 	}
 	await sleep(200);
-	return <ProductsList products={products.slice(-4)} />;
+	return (
+		<div>
+			<h3>You can also like</h3>
+			<div data-testid="related-products">
+				<ProductsList products={products.slice(-4)} />
+			</div>
+		</div>
+	);
 };

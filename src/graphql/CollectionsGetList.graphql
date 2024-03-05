@@ -1,0 +1,8 @@
+query CollectionsGetList($count: Int!) {
+	collections(take: $count) {
+		data {
+			description
+			name
+		}
+	}
+}
