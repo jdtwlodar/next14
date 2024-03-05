@@ -4,6 +4,8 @@ import {
 	ProductsGetListWithPaginationDocument,
 	ProductsGetByCategorySlugDocument,
 	ProductsGetByCollectionSlugDocument,
+	ProductsGetListSuggestedByCategoryDocument,
+	ProductsGetListBySearchDocument,
 	//type ProductsListItemFragmentFragment,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/gql";
@@ -17,13 +19,6 @@ type ProductResponseItem = {
 	images: Array<{ url: string; alt: string }>;
 };
 
-// export const getProductsList = async () => {
-// 	const res = await fetch(`https://naszsklep-api.vercel.app/api/products?take=20`);
-// 	const productsResponse = (await res.json()) as ProductResponseItem[];
-// 	const products = productsResponse.map((product) => productResponseItemToProductItemType(product));
-// 	return products;
-// };
-
 export const getProductsList = async () => {
 	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {});
 	return graphqlResponse.products.data;
@@ -31,6 +26,13 @@ export const getProductsList = async () => {
 
 export const getProductsForPage = async (count: number = PRODUCTS_PER_PAGE) => {
 	const graphQLResponse = await executeGraphql(ProductsGetListWithPaginationDocument, { count });
+	return graphQLResponse.products;
+};
+export const getProductsListBySearch = async (
+	search: string,
+	count: number = PRODUCTS_PER_PAGE,
+) => {
+	const graphQLResponse = await executeGraphql(ProductsGetListBySearchDocument, { search, count });
 	return graphQLResponse.products;
 };
 
@@ -44,8 +46,9 @@ export const getSuggestedProdcutsListByCategory = async (slug: string) => {
 	const graphQLResponse = await executeGraphql(ProductsGetListSuggestedByCategoryDocument, {
 		slug,
 	});
-	return graphQLResponse.products.data;
+	return graphQLResponse.category;
 };
+
 export const getProductsByCollectionSlug = async (slug: string) => {
 	const graphQLResponse = await executeGraphql(ProductsGetByCollectionSlugDocument, {
 		slug,

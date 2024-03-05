@@ -1,5 +1,6 @@
 import { type Route } from "next";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
+import { SearchBar } from "@/components/molecules/SearchBar";
 
 export const NavBar = () => {
 	const navLinks = [
@@ -28,6 +29,7 @@ export const NavBar = () => {
 			</ul>
 
 			<div className="flex items-center space-x-4">
+				<SearchBar />
 				<ActiveLink href="/cart" className="" activeClassName="text-blue-500">
 					Cart
 				</ActiveLink>

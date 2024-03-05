@@ -39,7 +39,6 @@ export default async function CategoryProductPage({
 							4 * parseInt(params.pageNumber, 10),
 						)}
 					/>
-					{4 * parseInt(params.pageNumber, 10)}
 					<Pagination
 						url={`/categories/${params.category}/`}
 						currentPage={parseInt(params.pageNumber, 10)}

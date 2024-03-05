@@ -1,0 +1,11 @@
+query ProductsGetListBySearch($search: String!, $count: Int!) {
+	products(search: $search, take: $count) {
+		data {
+			...ProductsListItemFragment
+		}
+		meta {
+			count
+			total
+		}
+	}
+}

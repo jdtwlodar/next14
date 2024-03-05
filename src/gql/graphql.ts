@@ -308,6 +308,14 @@ export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProductsGetListQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> }> } };
 
+export type ProductsGetListBySearchQueryVariables = Exact<{
+  search: Scalars['String']['input'];
+  count: Scalars['Int']['input'];
+}>;
+
+
+export type ProductsGetListBySearchQuery = { products: { data: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> }>, meta: { count: number, total: number } } };
+
 export type ProductsGetListSuggestedByCategoryQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
@@ -476,6 +484,32 @@ export const ProductsGetListDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ProductsGetListBySearchDocument = new TypedDocumentString(`
+    query ProductsGetListBySearch($search: String!, $count: Int!) {
+  products(search: $search, take: $count) {
+    data {
+      ...ProductsListItemFragment
+    }
+    meta {
+      count
+      total
+    }
+  }
+}
+    fragment ProductsListItemFragment on Product {
+  id
+  name
+  categories {
+    name
+  }
+  images {
+    url
+    alt
+    width
+    height
+  }
+  price
+}`) as unknown as TypedDocumentString<ProductsGetListBySearchQuery, ProductsGetListBySearchQueryVariables>;
 export const ProductsGetListSuggestedByCategoryDocument = new TypedDocumentString(`
     query ProductsGetListSuggestedByCategory($slug: String!) {
   category(slug: $slug) {
