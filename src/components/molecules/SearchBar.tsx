@@ -26,7 +26,13 @@ export const SearchBar = () => {
 
 	return (
 		<div className="text-gray-900">
-			<input type="text" value={searchQuery} onChange={handleInputChange} placeholder="Search..." />
+			<input
+				type="search"
+				name="search"
+				value={searchQuery}
+				onChange={handleInputChange}
+				placeholder="Search..."
+			/>
 		</div>
 	);
 };

@@ -10,7 +10,23 @@ export const generateStaticParams = async ({ params }: { params: { category: str
 		return [{ pageNumber: "1" }, { pageNumber: "2" }];
 	}
 };
-
+export const generateMetadata = async ({
+	params,
+}: {
+	params: { category: string; pageNumber: string };
+}) => {
+	const category = await getProdcutsByCategoryBySlug(params.category);
+	if (!category) return;
+	return {
+		title: category.name,
+		description: category.description,
+		siteName: category.name,
+		openGraph: {
+			title: category.name,
+			description: category.description,
+		},
+	};
+};
 export default async function CategoryProductPage({
 	params,
 }: {

@@ -14,7 +14,7 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "query CollectionsGetList($count: Int!) {\n  collections(take: $count) {\n    data {\n      description\n      name\n    }\n  }\n}": types.CollectionsGetListDocument,
+    "query CollectionsGetList($count: Int!) {\n  collections(take: $count) {\n    data {\n      description\n      name\n      id\n      slug\n    }\n  }\n}": types.CollectionsGetListDocument,
     "query ProductGetById($id: ID!) {\n  product(id: $id) {\n    ...ProductSingleItemFragment\n  }\n}": types.ProductGetByIdDocument,
     "fragment ProductSingleItemFragment on Product {\n  id\n  name\n  description\n  categories {\n    name\n  }\n  images {\n    url\n    alt\n    width\n    height\n  }\n  price\n  rating\n}": types.ProductSingleItemFragmentFragmentDoc,
     "query ProductsGetByCategorySlug($slug: String!) {\n  category(slug: $slug) {\n    name\n    description\n    products {\n      ...ProductsListItemFragment\n    }\n  }\n}": types.ProductsGetByCategorySlugDocument,
@@ -29,7 +29,7 @@ const documents = {
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query CollectionsGetList($count: Int!) {\n  collections(take: $count) {\n    data {\n      description\n      name\n    }\n  }\n}"): typeof import('./graphql').CollectionsGetListDocument;
+export function graphql(source: "query CollectionsGetList($count: Int!) {\n  collections(take: $count) {\n    data {\n      description\n      name\n      id\n      slug\n    }\n  }\n}"): typeof import('./graphql').CollectionsGetListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

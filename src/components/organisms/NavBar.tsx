@@ -5,10 +5,10 @@ import { SearchBar } from "@/components/molecules/SearchBar";
 export const NavBar = () => {
 	const navLinks = [
 		{ path: "/", title: "Home", exact: true },
-		{ path: "/products/1", title: "All", exact: false },
-		{ path: "/categories/t-shirts/1", title: "T-Shirts", exact: false },
-		{ path: "/categories/hoodies/1", title: "Hoodies", exact: false },
-		{ path: "/categories/accessories/1", title: "Accessories", exact: false },
+		{ path: "/products", title: "All", exact: false },
+		{ path: "/categories/t-shirts", title: "T-Shirts", exact: false },
+		{ path: "/categories/hoodies", title: "Hoodies", exact: false },
+		{ path: "/categories/accessories", title: "Accessories", exact: false },
 	];
 
 	return (
@@ -18,8 +18,10 @@ export const NavBar = () => {
 					<li key={link.path}>
 						<ActiveLink
 							href={link.path as Route<string>} // Fix: Update the type of href to be of type Route<string>
-							className={"cursor-pointer hover:text-blue-700"}
-							activeClassName={"text-blue-200"}
+							className={
+								"cursor-pointer border-b border-transparent hover:border-blue-200 hover:text-blue-700"
+							}
+							activeClassName={"text-blue-200 border-blue-200"}
 							exact={link.exact}
 						>
 							{link.title}
@@ -30,9 +32,7 @@ export const NavBar = () => {
 
 			<div className="flex items-center space-x-4">
 				<SearchBar />
-				<ActiveLink href="/cart" className="" activeClassName="text-blue-500">
-					Cart
-				</ActiveLink>
+				<div className="text-blue-500">Cart</div>
 			</div>
 		</nav>
 	);

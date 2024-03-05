@@ -278,7 +278,7 @@ export type CollectionsGetListQueryVariables = Exact<{
 }>;
 
 
-export type CollectionsGetListQuery = { collections: { data: Array<{ description: string, name: string }> } };
+export type CollectionsGetListQuery = { collections: { data: Array<{ description: string, name: string, id: string, slug: string }> } };
 
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -386,6 +386,8 @@ export const CollectionsGetListDocument = new TypedDocumentString(`
     data {
       description
       name
+      id
+      slug
     }
   }
 }

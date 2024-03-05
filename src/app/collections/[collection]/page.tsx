@@ -2,6 +2,20 @@ import { notFound } from "next/navigation";
 import { getProductsByCollectionSlug } from "@/api/products";
 import { ProductsList } from "@/components/organisms/ProductsList";
 
+export const generateMetadata = async ({ params }: { params: { collection: string } }) => {
+	const collection = await getProductsByCollectionSlug(params.collection);
+	if (!collection) return;
+	return {
+		title: collection.name,
+		description: collection.description,
+		siteName: collection.name,
+		openGraph: {
+			title: collection.name,
+			description: collection.description,
+		},
+	};
+};
+
 export default async function CollectionSinglePage({ params }: { params: { collection: string } }) {
 	const collection = await getProductsByCollectionSlug(params.collection);
 	if (!collection) {

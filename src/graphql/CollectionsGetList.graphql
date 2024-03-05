@@ -3,6 +3,8 @@ query CollectionsGetList($count: Int!) {
 		data {
 			description
 			name
+			id
+			slug
 		}
 	}
 }
