@@ -5,9 +5,9 @@ export const NavBar = () => {
 	const navLinks = [
 		{ path: "/", title: "Home", exact: true },
 		{ path: "/products/1", title: "All", exact: false },
-		{ path: "/categories/t-shirts", title: "T-Shirts", exact: false },
-		{ path: "/categories/hoodies", title: "Hoodies", exact: false },
-		{ path: "/categories/accessories", title: "Accessories", exact: false },
+		{ path: "/categories/t-shirts/1", title: "T-Shirts", exact: false },
+		{ path: "/categories/hoodies/1", title: "Hoodies", exact: false },
+		{ path: "/categories/accessories/1", title: "Accessories", exact: false },
 	];
 
 	return (

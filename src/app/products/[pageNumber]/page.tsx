@@ -16,6 +16,7 @@ export default async function ProductsPage({ params }: { params: { pageNumber: s
 				<h2 className="text-2xl font-bold tracking-tight text-gray-900">Shop</h2>
 				<ProductsList products={product.data} />
 				<Pagination
+					url="/products/"
 					currentPage={pageNumber}
 					itemsPerPage={product.meta.count}
 					totalProducts={product.meta.total}

@@ -2,6 +2,7 @@ import {
 	ProductsGetListDocument,
 	ProductGetByIdDocument,
 	ProductsGetListWithPaginationDocument,
+	ProductsGetByCategorySlugDocument,
 	//type ProductsListItemFragmentFragment,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/gql";
@@ -30,6 +31,13 @@ export const getProductsList = async () => {
 export const getProductsForPage = async (count: number = PRODUCTS_PER_PAGE) => {
 	const graphQLResponse = await executeGraphql(ProductsGetListWithPaginationDocument, { count });
 	return graphQLResponse.products;
+};
+
+export const getProdcutsByCategoryBySlug = async (slug: string) => {
+	const graphQLResponse = await executeGraphql(ProductsGetByCategorySlugDocument, {
+		slug,
+	});
+	return graphQLResponse.category;
 };
 /* export const PRODUCTS_PER_PAGE = 20;
 export const getProductsForPage = async (page: number) => {
@@ -61,6 +69,5 @@ export const getProductsForPage = async (page: number) => {
 }; */
 export const getProductById = async (id: ProductResponseItem["id"]) => {
 	const graphqlResponse = await executeGraphql(ProductGetByIdDocument, { id });
-	//console.log(graphqlResponse);
 	return graphqlResponse.product;
 };
