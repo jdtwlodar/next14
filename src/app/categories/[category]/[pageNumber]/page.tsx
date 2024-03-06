@@ -4,10 +4,10 @@ import { ProductsList } from "@/components/organisms/ProductsList";
 import { Pagination } from "@/components/molecules/Pagination";
 
 export const generateStaticParams = async ({ params }: { params: { category: string } }) => {
-	if (params.category === "shoes") {
+	if (params.category === "hoodies") {
 		return [{ pageNumber: "1" }, { pageNumber: "2" }];
 	} else {
-		return [{ pageNumber: "1" }, { pageNumber: "2" }];
+		return [{ pageNumber: "1" }];
 	}
 };
 export const generateMetadata = async ({

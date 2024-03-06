@@ -1,9 +1,6 @@
 export const generateStaticParams = async () => {
 	return [
 		{
-			category: "shoes",
-		},
-		{
 			category: "t-shirts",
 		},
 	];

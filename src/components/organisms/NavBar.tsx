@@ -1,4 +1,5 @@
 import { type Route } from "next";
+import { Suspense } from "react";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { SearchBar } from "@/components/molecules/SearchBar";
 
@@ -31,7 +32,9 @@ export const NavBar = () => {
 			</ul>
 
 			<div className="flex items-center space-x-4">
-				<SearchBar />
+				<Suspense>
+					<SearchBar />
+				</Suspense>
 				<div className="text-blue-500">Cart</div>
 			</div>
 		</nav>

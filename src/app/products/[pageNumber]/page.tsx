@@ -4,7 +4,7 @@ import { ProductsList } from "@/components/organisms/ProductsList";
 import { PRODUCTS_PER_PAGE } from "@/utils/constants";
 
 export const generateStaticParams = async () => {
-	return [{ pageNumber: "1" }, { pageNumber: "2" }, { pageNumber: "3" }];
+	return [{ pageNumber: "1" }];
 };
 
 export default async function ProductsPage({ params }: { params: { pageNumber: string } }) {
