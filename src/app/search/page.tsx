@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getProductsListBySearch } from "@/api/products";
 import { ProductsList } from "@/components/organisms/ProductsList";
+import { Loader } from "@/components/atoms/Loader";
 
 export default async function SearchProductsPage({
 	searchParams,
@@ -20,7 +22,9 @@ export default async function SearchProductsPage({
 				<h2 className="text-2xl font-bold tracking-tight text-gray-900">
 					Found {products.data.length} items for phrase <i>{searchParams.query}</i>
 				</h2>
-				<ProductsList products={products.data.slice(-6)} />
+				<Suspense fallback={<Loader />}>
+					<ProductsList products={products.data.slice(-6)} />
+				</Suspense>
 			</div>
 		</div>
 	);
