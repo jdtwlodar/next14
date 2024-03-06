@@ -1,17 +1,5 @@
 query getCardById($id: ID!) {
 	cart(id: $id) {
-		id
-		items {
-			product {
-				price
-				name
-				id
-				images {
-					url
-					alt
-				}
-			}
-			quantity
-		}
+		...CartOrderFragment
 	}
 }

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { executeGraphql } from "@/api/graphqlApi";
-import { CartGetByIdDocument } from "@/gql/graphql";
+import { GetCardByIdDocument } from "@/gql/graphql";
 import { formatMoney } from "@/utils";
 
 export default async function CartPage() {
@@ -11,10 +11,7 @@ export default async function CartPage() {
 		redirect("/");
 	}
 
-	const { order: cart } = await executeGraphql(CartGetByIdDocument, {
-		id: cartId,
-	});
-
+	const { order: cart } = await executeGraphql(GetCardByIdDocument, { id: cartId });
 	if (!cart) {
 		redirect("/");
 	}
