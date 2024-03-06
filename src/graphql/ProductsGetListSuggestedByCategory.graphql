@@ -1,0 +1,8 @@
+query ProductsGetListSuggestedByCategory($slug: String!) {
+	category(slug: $slug) {
+		products {
+			...ProductsListItemFragment
+		}
+	}
+}
+

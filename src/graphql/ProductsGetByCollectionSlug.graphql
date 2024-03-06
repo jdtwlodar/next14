@@ -1,0 +1,11 @@
+query ProductsGetByCollectionSlug($slug: String!) {
+	collection(slug: $slug) {
+		description
+		id
+		name
+		slug
+		products {
+			...ProductsListItemFragment
+		}
+	}
+}

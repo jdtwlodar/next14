@@ -1,21 +1,24 @@
+import { type Route } from "next";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 
 interface PaginationProps {
 	currentPage: number;
 	totalProducts: number;
 	itemsPerPage: number;
+	url: string;
 }
 
-export const Pagination = ({ currentPage, totalProducts, itemsPerPage }: PaginationProps) => {
+export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: PaginationProps) => {
 	const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
 	const renderPageLinks = () => {
 		const pageLinks = [];
 		for (let i = 1; i <= totalPages; i++) {
+			const link = `${url}${i}`;
 			pageLinks.push(
 				<li key={i}>
 					<ActiveLink
-						href={`/products/${i}`}
+						href={link as Route<string>}
 						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
 						activeClassName="border-indigo-500 text-indigo-600"
 						exact={true}
@@ -29,7 +32,7 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage }: Paginat
 	};
 
 	return (
-		<nav aria-label="pagination" className="mx-auto my-4">
+		<nav aria-label="pagination" role="navigation" className="mx-auto my-4">
 			<ul className="mx-auto flex justify-center space-x-2">
 				{currentPage > 1 && (
 					<>
@@ -37,7 +40,7 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage }: Paginat
 							<ActiveLink
 								className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
 								activeClassName="border-indigo-500 text-indigo-600"
-								href={`/products/1`}
+								href={`${url}1` as Route<string>}
 								exact={true}
 							>
 								{"|<"}
@@ -47,7 +50,7 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage }: Paginat
 							<ActiveLink
 								className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
 								activeClassName="border-indigo-500 text-indigo-600"
-								href={`/products/${currentPage - 1}`}
+								href={`${url}${currentPage - 1}` as Route<string>}
 								exact={true}
 							>
 								{"<"}
@@ -61,7 +64,7 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage }: Paginat
 						<ActiveLink
 							className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
 							activeClassName="border-indigo-500 text-indigo-600"
-							href={`/products/${currentPage + 1}`}
+							href={`${url}${currentPage + 1}` as Route<string>}
 							exact={true}
 						>
 							{">"}
@@ -73,7 +76,7 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage }: Paginat
 						<ActiveLink
 							className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
 							activeClassName="border-indigo-500 text-indigo-600"
-							href={`/products/${totalPages}`}
+							href={`${url}${totalPages}` as Route<string>}
 							exact={true}
 						>
 							{">|"}

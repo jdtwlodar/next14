@@ -4,9 +4,5 @@ export type ProductItemType = {
 	category: string;
 	name: string;
 	price: number;
-	coverImage: {
-		src: string;
-		alt: string;
-	};
-	longDescription: string;
+	images: Array<{ url: string; alt: string }>;
 };

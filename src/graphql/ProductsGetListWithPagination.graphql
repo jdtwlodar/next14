@@ -1,0 +1,11 @@
+query ProductsGetListWithPagination($count: Int!) {
+	products(take: $count) {
+		data {
+			...ProductsListItemFragment
+		}
+		meta {
+			count
+			total
+		}
+	}
+}

@@ -8,7 +8,21 @@ const nextConfig = {
 		mdxRs: true,
 	},
 	images: {
-		domains: ["naszsklep-api.vercel.app"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "**.fna.fbcdn.net",
+				pathname: "/v/**",
+			},
+			{
+				protocol: "https",
+				hostname: "naszsklep-api.vercel.app",
+			},
+			{
+				protocol: "https",
+				hostname: "static-ourstore.hyperfunctor.com",
+			},
+		],
 	},
 };
 

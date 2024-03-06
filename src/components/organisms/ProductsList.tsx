@@ -1,8 +1,8 @@
 import { ProductListItem } from "@/components/molecules/ProductListItem";
-import { type ProductItemType } from "@/components/types";
+import { type ProductsListItemFragmentFragment } from "@/gql/graphql";
 
 type ProductListType = {
-	products: ProductItemType[];
+	products: ProductsListItemFragmentFragment[];
 };
 export const ProductsList = ({ products }: ProductListType) => {
 	return (
@@ -11,9 +11,7 @@ export const ProductsList = ({ products }: ProductListType) => {
 			className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
 		>
 			{products.map((product) => (
-			
-					<ProductListItem key={product.id} product={product} />
-			
+				<ProductListItem key={product.id} product={product} />
 			))}
 		</ul>
 	);
