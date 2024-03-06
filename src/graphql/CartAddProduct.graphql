@@ -1,0 +1,5 @@
+mutation CardAddProduct($id: ID!, $productId: String!) {
+	cartAddItem(id: $id, input: { item: { productId: $productId, quantity: 1 } }) {
+		...CartOrderFragmentFragment
+	}
+}

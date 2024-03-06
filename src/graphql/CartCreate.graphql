@@ -1,0 +1,12 @@
+mutation cartFindOrCreate($id: ID!) {
+	cartFindOrCreate(input: { items: { productId: "", quantity: 10 } }, id: $id) {
+		id
+		items {
+			quantity
+			product {
+				id
+				name
+			}
+		}
+	}
+}
