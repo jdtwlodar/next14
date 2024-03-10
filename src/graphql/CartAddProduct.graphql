@@ -1,5 +1,5 @@
 mutation CartAddProduct($id: ID!, $productId: String!) {
-	cartAddItem(id: $id, input: { item: { productId: $productId, quantity: 1 } }) {
+	cartAddItem(id: $id, input: { item: { productId: $productId } }) {
 		...CartOrderFragment
 	}
 }

@@ -7,7 +7,7 @@ import {
 
 export const getCartById = async (id: string) => {
 	const graphqlResponse = await executeGraphql(GetCardByIdDocument, { id });
-	return graphqlResponse;
+	return graphqlResponse.cart;
 };
 export const createCart = async () => {
 	const graphqlResponse = await executeGraphql(CartFindOrCreateDocument, {});

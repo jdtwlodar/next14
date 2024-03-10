@@ -1,9 +1,12 @@
 import { type Route } from "next";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { SearchBar } from "@/components/molecules/SearchBar";
+import { executeGraphql } from "@/api/gql";
+import { GetCardByIdDocument } from "@/gql/graphql";
 
-export const NavBar = () => {
+export const NavBar = async () => {
 	const navLinks = [
 		{ path: "/", title: "Home", exact: true },
 		{ path: "/products", title: "All", exact: false },
@@ -11,7 +14,14 @@ export const NavBar = () => {
 		{ path: "/categories/hoodies", title: "Hoodies", exact: false },
 		{ path: "/categories/accessories", title: "Accessories", exact: false },
 	];
+	const cartId = cookies().get("cartId")?.value;
+	const cart = cartId
+		? await executeGraphql(GetCardByIdDocument, {
+				id: cartId,
+			})
+		: null;
 
+	const countCartItems = cart?.cart?.items.length || 0;
 	return (
 		<nav className="flex items-center justify-between bg-gray-800 p-4 text-white">
 			<ul className="flex gap-x-2 text-white">
@@ -35,7 +45,7 @@ export const NavBar = () => {
 				<Suspense>
 					<SearchBar />
 				</Suspense>
-				<div className="text-blue-500">Cart</div>
+				<div className="text-blue-500">Cart {cart && <sup>{countCartItems}</sup>}</div>
 			</div>
 		</nav>
 	);
