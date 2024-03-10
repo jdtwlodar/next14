@@ -1,5 +1,5 @@
-mutation CartRemoveProduct($id: ID!, $productId: String!) {
-	cartRemoveItem(id: "", productId: "") {
+mutation CartRemoveProduct($id: ID!, $productId: ID!) {
+	cartRemoveItem(id: $id, productId: $productId) {
 		id
 	}
 }

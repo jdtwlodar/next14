@@ -1,4 +1,4 @@
-mutation CardAddProduct($id: ID!, $productId: String!) {
+mutation CartAddProduct($id: ID!, $productId: String!) {
 	cartAddItem(id: $id, input: { item: { productId: $productId, quantity: 1 } }) {
 		...CartOrderFragment
 	}

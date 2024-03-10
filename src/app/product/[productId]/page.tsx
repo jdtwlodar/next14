@@ -1,14 +1,19 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { cookies } from "next/headers";
+import { AddToCartButton } from "./AddToCartButton";
 import { getProductById, getProductsList } from "@/api/products";
 import { ProductSingleImage } from "@/components/atoms/ProductSingleImage";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
 import { Loader } from "@/components/atoms/Loader";
 import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
-import { AddToCartButton } from "@/app/product/AddToCartButton";
 import { executeGraphql } from "@/api/gql";
-import { CartFindOrCreateDocument, GetCardByIdDocumnet } from "@/gql/graphql";
+import {
+	CartFindOrCreateDocument,
+	type CartOrderFragmentFragment,
+	GetCardByIdDocument,
+} from "@/gql/graphql";
+import { addProductToCart } from "@/api/cart";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -39,8 +44,7 @@ export default async function SingleProductPage({ params }: { params: { productI
 	if (!product) return notFound();
 	async function addProductToCartAction() {
 		"use server";
-		console.log("addProductToCartAction");
-		console.log(params.productId);
+
 		const cart = await getOrCreateCart();
 		cookies().set("cartId", cart.id, { path: "/" });
 		await addProductToCart(cart.id, params.productId);
@@ -69,27 +73,30 @@ export default async function SingleProductPage({ params }: { params: { productI
 		</div>
 	);
 }
-async function getOrCreateCart() {
+async function getOrCreateCart(): Promise<CartOrderFragmentFragment> {
 	const cartId = cookies().get("cartId")?.value;
 	if (cartId) {
 		const cart = await getCartById(cartId);
 		if (cart) {
-			return cart.order;
+			return cart;
 		}
 	} else {
 		createCart();
 	}
-	const cart = await createCart();
-	if (!cart.createOrder) {
+	const cart = createCart();
+	if (!cart) {
 		throw new Error("Could not create cart");
 	}
-	return cart.createOrder;
+	return cart;
 }
 function getCartById(cartId: string) {
-	return executeGraphql(GetCardByIdDocumnet, {
+	return executeGraphql(GetCardByIdDocument, {
 		id: cartId,
+		items: {},
 	});
 }
-function createCart() {
-	return executeGraphql(CartFindOrCreateDocument, {});
+
+async function createCart() {
+	const graphqlResponse = await executeGraphql(CartFindOrCreateDocument, {});
+	return graphqlResponse.cartFindOrCreate;
 }

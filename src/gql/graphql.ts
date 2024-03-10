@@ -274,16 +274,16 @@ export type SortDirection =
   | 'ASC'
   | 'DESC';
 
-export type CardAddProductMutationVariables = Exact<{
+export type CartAddProductMutationVariables = Exact<{
   id: Scalars['ID']['input'];
   productId: Scalars['String']['input'];
 }>;
 
 
-export type CardAddProductMutation = { cartAddItem: { id: string, items: Array<{ product: { id: string, name: string, price: number, categories: Array<{ slug: string, name: string }>, images: Array<{ url: string, alt: string }> } }> } };
+export type CartAddProductMutation = { cartAddItem: { id: string, items: Array<{ product: { id: string, name: string, price: number, categories: Array<{ slug: string, name: string }>, images: Array<{ url: string, alt: string }> } }> } };
 
 export type CartFindOrCreateMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
@@ -300,7 +300,7 @@ export type CartOrderFragmentFragment = { id: string, items: Array<{ product: { 
 
 export type CartRemoveProductMutationVariables = Exact<{
   id: Scalars['ID']['input'];
-  productId: Scalars['String']['input'];
+  productId: Scalars['ID']['input'];
 }>;
 
 
@@ -433,8 +433,8 @@ export const ProductsListItemFragmentFragmentDoc = new TypedDocumentString(`
   price
 }
     `, {"fragmentName":"ProductsListItemFragment"}) as unknown as TypedDocumentString<ProductsListItemFragmentFragment, unknown>;
-export const CardAddProductDocument = new TypedDocumentString(`
-    mutation CardAddProduct($id: ID!, $productId: String!) {
+export const CartAddProductDocument = new TypedDocumentString(`
+    mutation CartAddProduct($id: ID!, $productId: String!) {
   cartAddItem(id: $id, input: {item: {productId: $productId, quantity: 1}}) {
     ...CartOrderFragment
   }
@@ -456,10 +456,10 @@ export const CardAddProductDocument = new TypedDocumentString(`
       }
     }
   }
-}`) as unknown as TypedDocumentString<CardAddProductMutation, CardAddProductMutationVariables>;
+}`) as unknown as TypedDocumentString<CartAddProductMutation, CartAddProductMutationVariables>;
 export const CartFindOrCreateDocument = new TypedDocumentString(`
-    mutation cartFindOrCreate($id: ID!) {
-  cartFindOrCreate(input: {}, id: $id) {
+    mutation CartFindOrCreate($id: ID) {
+  cartFindOrCreate(id: $id, input: {}) {
     ...CartOrderFragment
   }
 }
@@ -506,8 +506,8 @@ export const GetCardByIdDocument = new TypedDocumentString(`
   }
 }`) as unknown as TypedDocumentString<GetCardByIdQuery, GetCardByIdQueryVariables>;
 export const CartRemoveProductDocument = new TypedDocumentString(`
-    mutation CartRemoveProduct($id: ID!, $productId: String!) {
-  cartRemoveItem(id: "", productId: "") {
+    mutation CartRemoveProduct($id: ID!, $productId: ID!) {
+  cartRemoveItem(id: $id, productId: $productId) {
     id
   }
 }
