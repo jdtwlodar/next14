@@ -46,7 +46,6 @@ export default async function SingleProductPage({ params }: { params: { productI
 		"use server";
 
 		const cart = await getOrCreateCart();
-		console.log("cartttttttttt", cart);
 		cookies().set("cartId", cart.id, { path: "/" });
 		await addProductToCart(cart.id, params.productId);
 	}
@@ -76,11 +75,10 @@ export default async function SingleProductPage({ params }: { params: { productI
 }
 async function getOrCreateCart(): Promise<CartOrderFragmentFragment> {
 	const cartId = cookies().get("cartId")?.value;
-	console.log("cartId", cartId);
 	if (cartId) {
 		const cart = await executeGraphql(GetCardByIdDocument, { id: cartId });
-		if (!cart) {
-			return cart;
+		if (cart && cart.cart) {
+			return cart.cart;
 		}
 	} else {
 		await createCart();

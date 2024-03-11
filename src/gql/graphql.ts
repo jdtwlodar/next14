@@ -282,6 +282,15 @@ export type CartAddProductMutationVariables = Exact<{
 
 export type CartAddProductMutation = { cartAddItem: { id: string, items: Array<{ quantity: number, product: { id: string, name: string, price: number, categories: Array<{ slug: string, name: string }>, images: Array<{ url: string, alt: string }> } }> } };
 
+export type CartChangeItemQuantityMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+}>;
+
+
+export type CartChangeItemQuantityMutation = { cartChangeItemQuantity: { id: string, items: Array<{ quantity: number, product: { id: string, name: string, price: number, categories: Array<{ slug: string, name: string }>, images: Array<{ url: string, alt: string }> } }> } };
+
 export type CartFindOrCreateMutationVariables = Exact<{
   id?: InputMaybe<Scalars['ID']['input']>;
 }>;
@@ -459,6 +468,31 @@ export const CartAddProductDocument = new TypedDocumentString(`
     }
   }
 }`) as unknown as TypedDocumentString<CartAddProductMutation, CartAddProductMutationVariables>;
+export const CartChangeItemQuantityDocument = new TypedDocumentString(`
+    mutation cartChangeItemQuantity($id: ID!, $productId: ID!, $quantity: Int!) {
+  cartChangeItemQuantity(id: $id, productId: $productId, quantity: $quantity) {
+    ...CartOrderFragment
+  }
+}
+    fragment CartOrderFragment on Cart {
+  id
+  items {
+    quantity
+    product {
+      id
+      name
+      price
+      categories {
+        slug
+        name
+      }
+      images {
+        url
+        alt
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<CartChangeItemQuantityMutation, CartChangeItemQuantityMutationVariables>;
 export const CartFindOrCreateDocument = new TypedDocumentString(`
     mutation CartFindOrCreate($id: ID) {
   cartFindOrCreate(id: $id, input: {}) {

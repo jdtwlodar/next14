@@ -15,6 +15,7 @@ export default async function CartPage() {
 	if (!cart) {
 		redirect("/");
 	}
+	console.log("cart in cart", cart);
 
 	return (
 		<div>
@@ -35,6 +36,7 @@ export default async function CartPage() {
 						return (
 							<tr key={item.product.id}>
 								<td>{item.product.name}</td>
+								<td>{item.quantity}</td>
 								<td>{formatMoney(item.product.price)}</td>
 							</tr>
 						);
