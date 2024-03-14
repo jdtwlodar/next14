@@ -47,7 +47,7 @@ export default async function CartPage() {
 										/>
 									</div>
 								</td>
-								<td>{formatMoney(item.product.price)}</td>
+								<td>{formatMoney(item.product.price * item.quantity)}</td>
 							</tr>
 						);
 					})}
