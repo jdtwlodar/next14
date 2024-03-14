@@ -20,7 +20,6 @@ export const IncrementItemButton = ({
 	return (
 		<form>
 			<button
-				type="submit"
 				formAction={async () => {
 					setQuantityOptimistic(quantityOptimistic + 1);
 					await changeItemQuantity(id, productId, quantityOptimistic + 1);
@@ -33,7 +32,6 @@ export const IncrementItemButton = ({
 			</button>
 			{quantityOptimistic}
 			<button
-				type="submit"
 				disabled={quantityOptimistic < 1}
 				formAction={async () => {
 					setQuantityOptimistic(quantityOptimistic - 1);
