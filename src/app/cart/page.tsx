@@ -4,6 +4,7 @@ import { executeGraphql } from "@/api/gql";
 import { GetCardByIdDocument } from "@/gql/graphql";
 import { formatMoney } from "@/utils/money";
 import { IncrementItemButton } from "@/app/cart/IncrementItemButton";
+import { RemoveProductButton } from "@/app/cart/RemoveProductButton";
 
 export default async function CartPage() {
 	const cartId = cookies().get("cartId")?.value;
@@ -39,10 +40,11 @@ export default async function CartPage() {
 								<td>
 									<div className="flex">
 										<IncrementItemButton
-											id={cart.id}
+											cartId={cart.id}
 											productId={item.product.id}
 											quantity={item.quantity}
 										/>
+										<RemoveProductButton cartId={cart.id} productId={item.product.id} />
 									</div>
 								</td>
 								<td>{formatMoney(item.product.price * item.quantity)}</td>

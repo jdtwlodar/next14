@@ -1,10 +1,12 @@
 import { type Route } from "next";
 import { Suspense } from "react";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { SearchBar } from "@/components/molecules/SearchBar";
 import { executeGraphql } from "@/api/gql";
 import { GetCardByIdDocument } from "@/gql/graphql";
+import { Icon } from "@/components/atoms/Icon";
 
 export const NavBar = async () => {
 	const navLinks = [
@@ -45,7 +47,12 @@ export const NavBar = async () => {
 				<Suspense>
 					<SearchBar />
 				</Suspense>
-				<div className="text-blue-500">Cart {cart && <sup>{countCartItems}</sup>}</div>
+				<div className="text-blue-500">
+					<Link href="/cart">
+						<Icon name="shopping-cart" />
+						{cart && <sup>{countCartItems}</sup>}
+					</Link>
+				</div>
 			</div>
 		</nav>
 	);
