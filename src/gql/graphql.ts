@@ -469,7 +469,7 @@ export const CartAddProductDocument = new TypedDocumentString(`
   }
 }`) as unknown as TypedDocumentString<CartAddProductMutation, CartAddProductMutationVariables>;
 export const CartChangeItemQuantityDocument = new TypedDocumentString(`
-    mutation cartChangeItemQuantity($id: ID!, $productId: ID!, $quantity: Int!) {
+    mutation CartChangeItemQuantity($id: ID!, $productId: ID!, $quantity: Int!) {
   cartChangeItemQuantity(id: $id, productId: $productId, quantity: $quantity) {
     ...CartOrderFragment
   }

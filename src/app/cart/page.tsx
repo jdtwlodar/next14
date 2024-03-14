@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { executeGraphql } from "@/api/gql";
 import { GetCardByIdDocument } from "@/gql/graphql";
 import { formatMoney } from "@/utils/money";
+import { IncrementItemButton } from "@/app/cart/IncrementItemButton";
+import { DecrementItemButton } from "@/app/cart/DecrementItemButton";
 
 export default async function CartPage() {
 	const cartId = cookies().get("cartId")?.value;
@@ -36,7 +38,15 @@ export default async function CartPage() {
 						return (
 							<tr key={item.product.id}>
 								<td>{item.product.name}</td>
-								<td>{item.quantity}</td>
+								<td>
+									<div className="flex">
+										<IncrementItemButton
+											id={cart.id}
+											productId={item.product.id}
+											quantity={item.quantity}
+										/>
+									</div>
+								</td>
 								<td>{formatMoney(item.product.price)}</td>
 							</tr>
 						);
