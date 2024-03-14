@@ -4,7 +4,6 @@ import { executeGraphql } from "@/api/gql";
 import { GetCardByIdDocument } from "@/gql/graphql";
 import { formatMoney } from "@/utils/money";
 import { IncrementItemButton } from "@/app/cart/IncrementItemButton";
-import { DecrementItemButton } from "@/app/cart/DecrementItemButton";
 
 export default async function CartPage() {
 	const cartId = cookies().get("cartId")?.value;
@@ -17,7 +16,6 @@ export default async function CartPage() {
 	if (!cart) {
 		redirect("/");
 	}
-	console.log("cart in cart", cart);
 
 	return (
 		<div>
