@@ -1,12 +1,11 @@
 import { type Route } from "next";
 import { Suspense } from "react";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { SearchBar } from "@/components/molecules/SearchBar";
-import { executeGraphql } from "@/api/gql";
-import { GetCardByIdDocument } from "@/gql/graphql";
+
 import { Icon } from "@/components/atoms/Icon";
+import { getCartFromCookies } from "@/api/cart";
 
 export const NavBar = async () => {
 	const navLinks = [
@@ -16,14 +15,9 @@ export const NavBar = async () => {
 		{ path: "/categories/hoodies", title: "Hoodies", exact: false },
 		{ path: "/categories/accessories", title: "Accessories", exact: false },
 	];
-	const cartId = cookies().get("cartId")?.value;
-	const cart = cartId
-		? await executeGraphql(GetCardByIdDocument, {
-				id: cartId,
-			})
-		: null;
+	const cart = await getCartFromCookies();
 
-	const countCartItems = cart?.cart?.items.length || 0;
+	const countCartItems = cart?.items.length || 0;
 	return (
 		<nav className="flex items-center justify-between bg-gray-800 p-4 text-white">
 			<ul className="flex gap-x-2 text-white">

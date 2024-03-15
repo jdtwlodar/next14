@@ -7,13 +7,8 @@ import { ProductSingleImage } from "@/components/atoms/ProductSingleImage";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
 import { Loader } from "@/components/atoms/Loader";
 import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
-import { executeGraphql } from "@/api/gql";
-import {
-	CartFindOrCreateDocument,
-	type CartOrderFragmentFragment,
-	GetCardByIdDocument,
-} from "@/gql/graphql";
-import { addProductToCart } from "@/api/cart";
+import { type CartOrderFragmentFragment } from "@/gql/graphql";
+import { addProductToCart, createCart, getCartFromCookies } from "@/api/cart";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -74,23 +69,15 @@ export default async function SingleProductPage({ params }: { params: { productI
 	);
 }
 async function getOrCreateCart(): Promise<CartOrderFragmentFragment> {
-	const cartId = cookies().get("cartId")?.value;
-	if (cartId) {
-		const cart = await executeGraphql(GetCardByIdDocument, { id: cartId });
-		if (cart && cart.cart) {
-			return cart.cart;
-		}
-	} else {
+	const cartCookies = await getCartFromCookies();
+	if (!cartCookies) {
 		await createCart();
+	} else {
+		return cartCookies;
 	}
 	const cart = await createCart();
 	if (!cart.id) {
 		throw new Error("Could not create cart");
 	}
 	return cart;
-}
-
-async function createCart() {
-	const graphqlResponse = await executeGraphql(CartFindOrCreateDocument, {});
-	return graphqlResponse.cartFindOrCreate;
 }

@@ -13,7 +13,7 @@ export default async function CartPage() {
 		redirect("/");
 	}
 
-	const { cart } = await executeGraphql(GetCardByIdDocument, { id: cartId });
+	const { cart } = await executeGraphql({ query: GetCardByIdDocument, variables: { id: cartId } });
 	if (!cart) {
 		redirect("/");
 	}
@@ -25,7 +25,7 @@ export default async function CartPage() {
 				<thead>
 					<tr>
 						<th>Product</th>
-						<th>Quantity</th>
+						<th className="w-64">Quantity</th>
 						<th>Price</th>
 					</tr>
 				</thead>
@@ -38,7 +38,7 @@ export default async function CartPage() {
 							<tr key={item.product.id}>
 								<td>{item.product.name}</td>
 								<td>
-									<div className="flex">
+									<div className="flex h-8 w-64">
 										<IncrementItemButton
 											cartId={cart.id}
 											productId={item.product.id}

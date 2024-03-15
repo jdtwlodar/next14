@@ -3,13 +3,19 @@ import { executeGraphql } from "@/api/gql";
 import { CartChangeItemQuantityDocument, CartRemoveProductDocument } from "@/gql/graphql";
 
 export const changeItemQuantity = (id: string, productId: string, quantity: number) => {
-	return executeGraphql(CartChangeItemQuantityDocument, { id, productId, quantity });
+	return executeGraphql({
+		query: CartChangeItemQuantityDocument,
+		variables: { id, productId, quantity },
+	});
 };
 
 export const removeItem = async (id: string, productId: string) => {
-	const graphqlResponse = await executeGraphql(CartRemoveProductDocument, {
-		id,
-		productId,
+	const graphqlResponse = await executeGraphql({
+		query: CartRemoveProductDocument,
+		variables: {
+			id,
+			productId,
+		},
 	});
 	return graphqlResponse;
 };

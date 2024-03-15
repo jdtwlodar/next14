@@ -13,7 +13,7 @@ export const IncrementItemButton = ({
 	productId: string;
 	quantity: number;
 }) => {
-	const [isPending, startTransition] = useTransition();
+	const [_isPending, startTransition] = useTransition();
 	const [quantityOptimistic, setQuantityOptimistic] = useOptimistic(
 		quantity,
 		(_prevStateOptimistic, newStateOptimistic: number) => {
@@ -22,33 +22,46 @@ export const IncrementItemButton = ({
 	);
 	const router = useRouter();
 	return (
-		<form>
+		<form className="flex w-24 gap-2">
 			<button
-				formAction={async () => {
-					setQuantityOptimistic(quantityOptimistic + 1);
-					await changeItemQuantity(cartId, productId, quantityOptimistic + 1);
+				type="submit"
+				className="block h-3 w-3 bg-slate-700 "
+				formAction={() => {
+					startTransition(async () => {
+						setQuantityOptimistic(quantityOptimistic + 1);
+
+						await changeItemQuantity(cartId, productId, quantityOptimistic + 1);
+						router.refresh();
+					});
 				}}
 				data-testid="increment"
-				disabled={isPending || quantityOptimistic === 100}
-				className=" rounded-md border bg-slate-700 p-1 text-white disabled:cursor-wait disabled:bg-slate-400"
+				disabled={quantityOptimistic === 100}
 			>
-				<Icon name="plus" />
+				<Icon
+					name="plus"
+					className="rounded-md border bg-slate-700 p-1 text-white  disabled:bg-slate-400"
+				/>
 			</button>
 			{quantityOptimistic}
 			<div>
 				<button
+					type="submit"
+					className="h-3 w-3 bg-slate-700 "
 					disabled={quantityOptimistic < 1}
-					className=" rounded-md border bg-slate-700 p-1 text-white disabled:cursor-wait disabled:bg-slate-400"
-					formAction={async () => {
-						setQuantityOptimistic(quantityOptimistic - 1);
+					formAction={() => {
 						startTransition(async () => {
+							setQuantityOptimistic(quantityOptimistic - 1);
+
 							await changeItemQuantity(cartId, productId, quantityOptimistic - 1);
 							router.refresh();
 						});
 					}}
 					data-testid="increment"
 				>
-					<Icon name="minus" />
+					<Icon
+						name="minus"
+						className=" rounded-md border bg-slate-700 p-1 text-white  disabled:bg-slate-400"
+					/>
 				</button>
 			</div>
 		</form>
