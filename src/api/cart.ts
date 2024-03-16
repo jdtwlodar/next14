@@ -63,6 +63,7 @@ export const addProductToCart = async (id: string, productId: string) => {
 		next: {
 			tags: ["cart"],
 		},
+		cache: "no-store",
 	});
 	return graphqlResponse;
 };
