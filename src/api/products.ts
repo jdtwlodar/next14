@@ -20,7 +20,11 @@ type ProductResponseItem = {
 };
 
 export const getProductsList = async () => {
-	const graphqlResponse = await executeGraphql({ query: ProductsGetListDocument, variables: {} });
+	const graphqlResponse = await executeGraphql({
+		query: ProductsGetListDocument,
+		variables: {},
+		next: { revalidate: 550 },
+	});
 	return graphqlResponse.products.data;
 };
 
