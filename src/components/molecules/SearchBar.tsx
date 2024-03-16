@@ -9,7 +9,6 @@ export const SearchBar = () => {
 	const [searchQuery, setSearchQuery] = useState(query || "");
 	const handleInputSubmit = () => {
 		if (searchQuery.length < 2) return;
-		console.log(searchQuery);
 		router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
 	};
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

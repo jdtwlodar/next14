@@ -1,10 +1,14 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { revalidateTag } from "next/cache";
+import { AddToCartButton } from "./AddToCartButton";
 import { getProductById, getProductsList } from "@/api/products";
 import { ProductSingleImage } from "@/components/atoms/ProductSingleImage";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
 import { Loader } from "@/components/atoms/Loader";
 import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
+
+import { addProductToCart, getOrCreateCart } from "@/api/cart";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -33,14 +37,26 @@ export const generateMetadata = async ({ params }: { params: { productId: string
 export default async function SingleProductPage({ params }: { params: { productId: string } }) {
 	const product = await getProductById(params.productId);
 	if (!product) return notFound();
+	async function addProductToCartAction() {
+		"use server";
+		const cart = await getOrCreateCart();
+		await addProductToCart(cart.id, params.productId);
+		revalidateTag("cart");
+	}
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center py-2">
 			<div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
 				<article>
 					<h1 className="text-6xl font-bold">{product?.name}</h1>
-					<div>{product.description}</div>
-					{product.images[0] && <ProductSingleImage {...product.images[0]} />}
-					<ProductListItemDescription product={product} />
+					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+						<div>{product.images[0] && <ProductSingleImage {...product.images[0]} />}</div>
+						<form action={addProductToCartAction}>
+							<ProductListItemDescription product={product} />
+							<input type="text" name="productId" value={product.id} hidden />
+							<input type="number" name="quantity" value="1" />
+							<AddToCartButton />
+						</form>
+					</div>
 				</article>
 				<aside>
 					<Suspense fallback={<Loader />}>

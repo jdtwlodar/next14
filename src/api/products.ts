@@ -20,38 +20,53 @@ type ProductResponseItem = {
 };
 
 export const getProductsList = async () => {
-	const graphqlResponse = await executeGraphql(ProductsGetListDocument, {});
+	const graphqlResponse = await executeGraphql({ query: ProductsGetListDocument, variables: {} });
 	return graphqlResponse.products.data;
 };
 
 export const getProductsForPage = async (count: number = PRODUCTS_PER_PAGE) => {
-	const graphQLResponse = await executeGraphql(ProductsGetListWithPaginationDocument, { count });
+	const graphQLResponse = await executeGraphql({
+		query: ProductsGetListWithPaginationDocument,
+		variables: { count },
+	});
 	return graphQLResponse.products;
 };
 export const getProductsListBySearch = async (
 	search: string,
 	count: number = PRODUCTS_PER_PAGE,
 ) => {
-	const graphQLResponse = await executeGraphql(ProductsGetListBySearchDocument, { search, count });
+	const graphQLResponse = await executeGraphql({
+		query: ProductsGetListBySearchDocument,
+		variables: { search, count },
+	});
 	return graphQLResponse.products;
 };
 
 export const getProdcutsByCategoryBySlug = async (slug: string) => {
-	const graphQLResponse = await executeGraphql(ProductsGetByCategorySlugDocument, {
-		slug,
+	const graphQLResponse = await executeGraphql({
+		query: ProductsGetByCategorySlugDocument,
+		variables: {
+			slug,
+		},
 	});
 	return graphQLResponse.category;
 };
 export const getSuggestedProdcutsListByCategory = async (slug: string) => {
-	const graphQLResponse = await executeGraphql(ProductsGetListSuggestedByCategoryDocument, {
-		slug,
+	const graphQLResponse = await executeGraphql({
+		query: ProductsGetListSuggestedByCategoryDocument,
+		variables: {
+			slug,
+		},
 	});
 	return graphQLResponse.category;
 };
 
 export const getProductsByCollectionSlug = async (slug: string) => {
-	const graphQLResponse = await executeGraphql(ProductsGetByCollectionSlugDocument, {
-		slug,
+	const graphQLResponse = await executeGraphql({
+		query: ProductsGetByCollectionSlugDocument,
+		variables: {
+			slug,
+		},
 	});
 	return graphQLResponse.collection;
 };
@@ -85,6 +100,9 @@ export const getProductsForPage = async (page: number) => {
 	return productResponseItemToProductItemType(productResponse);
 }; */
 export const getProductById = async (id: ProductResponseItem["id"]) => {
-	const graphqlResponse = await executeGraphql(ProductGetByIdDocument, { id });
+	const graphqlResponse = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: { id },
+	});
 	return graphqlResponse.product;
 };
