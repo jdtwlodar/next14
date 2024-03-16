@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { executeGraphql } from "@/api/gql";
 import { GetCardByIdDocument } from "@/gql/graphql";
 import { formatMoney } from "@/utils/money";
@@ -36,7 +37,9 @@ export default async function CartPage() {
 						}
 						return (
 							<tr key={item.product.id}>
-								<td>{item.product.name}</td>
+								<td>
+									<Link href={`/product/${item.product.id}`}>{item.product.name}</Link>
+								</td>
 								<td>
 									<div className="flex h-8 w-64">
 										<IncrementItemButton

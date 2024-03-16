@@ -16,6 +16,7 @@ export const ProductSingleImage = ({
 			<NextImage
 				width={width}
 				height={height}
+				priority
 				src={url}
 				alt={alt}
 				className="h-full w-full object-contain object-center p-4"

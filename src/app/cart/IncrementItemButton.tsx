@@ -24,7 +24,7 @@ export const IncrementItemButton = ({
 	return (
 		<form className="flex w-24 gap-2">
 			<button
-				type="submit"
+				type="button"
 				className="block h-3 w-3 bg-slate-700 "
 				formAction={() => {
 					startTransition(async () => {
@@ -45,7 +45,7 @@ export const IncrementItemButton = ({
 			{quantityOptimistic}
 			<div>
 				<button
-					type="submit"
+					type="button"
 					className="h-3 w-3 bg-slate-700 "
 					disabled={quantityOptimistic < 1}
 					formAction={() => {

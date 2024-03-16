@@ -18,6 +18,7 @@ export const NavBar = async () => {
 	const cart = await getCartFromCookies();
 
 	const countCartItems = cart?.items.length || 0;
+	const allItemsQuantity = cart?.items.reduce((acc, item) => acc + item.quantity, 0) || 0;
 	return (
 		<nav className="flex items-center justify-between bg-gray-800 p-4 text-white">
 			<ul className="flex gap-x-2 text-white">
@@ -44,7 +45,12 @@ export const NavBar = async () => {
 				<div className="text-blue-500">
 					<Link href="/cart">
 						<Icon name="shopping-cart" />
-						{cart && <sup>{countCartItems}</sup>}
+						{cart && (
+							<sup>
+								{countCartItems}
+								{allItemsQuantity}
+							</sup>
+						)}
 					</Link>
 				</div>
 			</div>

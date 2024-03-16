@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 import { AddToCartButton } from "./AddToCartButton";
 import { getProductById, getProductsList } from "@/api/products";
 import { ProductSingleImage } from "@/components/atoms/ProductSingleImage";
 import { ProductListItemDescription } from "@/components/atoms/ProductListItemDescription";
 import { Loader } from "@/components/atoms/Loader";
 import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
-import { type CartOrderFragmentFragment } from "@/gql/graphql";
-import { addProductToCart, createCart, getCartFromCookies } from "@/api/cart";
+
+import { addProductToCart, getOrCreateCart } from "@/api/cart";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -39,10 +39,9 @@ export default async function SingleProductPage({ params }: { params: { productI
 	if (!product) return notFound();
 	async function addProductToCartAction() {
 		"use server";
-
 		const cart = await getOrCreateCart();
-		cookies().set("cartId", cart.id, { path: "/" });
 		await addProductToCart(cart.id, params.productId);
+		revalidateTag("cart");
 	}
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center py-2">
@@ -67,17 +66,4 @@ export default async function SingleProductPage({ params }: { params: { productI
 			</div>
 		</div>
 	);
-}
-async function getOrCreateCart(): Promise<CartOrderFragmentFragment> {
-	const cartCookies = await getCartFromCookies();
-	if (!cartCookies) {
-		await createCart();
-	} else {
-		return cartCookies;
-	}
-	const cart = await createCart();
-	if (!cart.id) {
-		throw new Error("Could not create cart");
-	}
-	return cart;
 }
