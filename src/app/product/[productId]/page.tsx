@@ -29,7 +29,6 @@ export const generateMetadata = async ({ params }: { params: { productId: string
 		openGraph: {
 			title: product.name,
 			description: product.description,
-			images: [product.images[0]],
 		},
 	};
 };
@@ -52,8 +51,7 @@ export default async function SingleProductPage({ params }: { params: { productI
 						<div>{product.images[0] && <ProductSingleImage {...product.images[0]} />}</div>
 						<form action={addProductToCartAction}>
 							<ProductListItemDescription product={product} />
-							<input type="text" name="productId" value={product.id} hidden />
-							<input type="number" name="quantity" value="1" />
+
 							<AddToCartButton />
 						</form>
 					</div>
