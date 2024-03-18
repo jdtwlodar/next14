@@ -42,7 +42,7 @@ export const IncrementItemButton = ({
 					className="rounded-md border bg-slate-700 p-1 text-white  disabled:bg-slate-400"
 				/>
 			</button>
-			{quantityOptimistic}
+			<div data-testid="quantity">{quantityOptimistic}</div>
 			<div>
 				<button
 					type="submit"
@@ -56,7 +56,7 @@ export const IncrementItemButton = ({
 							router.refresh();
 						});
 					}}
-					data-testid="increment"
+					data-testid="decrement"
 				>
 					<Icon
 						name="minus"

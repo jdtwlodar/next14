@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { SearchBar } from "@/components/molecules/SearchBar";
-
+import { Loader } from "@/components/atoms/Loader";
 import { Icon } from "@/components/atoms/Icon";
 import { getCartFromCookies } from "@/api/cart";
 
@@ -20,26 +20,27 @@ export const NavBar = async () => {
 	//const countCartItems = cart?.items.length || 0;
 	const allItemsQuantity = cart?.items.reduce((acc, item) => acc + item.quantity, 0) || 0;
 	return (
-		<nav className="flex items-center justify-between bg-gray-800 p-4 text-white">
-			<ul className="flex gap-x-2 text-white">
-				{navLinks.map((link) => (
-					<li key={link.path}>
-						<ActiveLink
-							href={link.path as Route<string>} // Fix: Update the type of href to be of type Route<string>
-							className={
-								"cursor-pointer border-b border-transparent hover:border-blue-200 hover:text-blue-700"
-							}
-							activeClassName={"text-blue-200 border-blue-200"}
-							exact={link.exact}
-						>
-							{link.title}
-						</ActiveLink>
-					</li>
-				))}
-			</ul>
-
+		<div className="flex items-center justify-between bg-gray-800 p-4 text-white">
+			<nav className="flex items-center justify-between bg-gray-800 p-4 text-white">
+				<ul className="flex gap-x-2 text-white">
+					{navLinks.map((link) => (
+						<li key={link.path}>
+							<ActiveLink
+								href={link.path as Route<string>} // Fix: Update the type of href to be of type Route<string>
+								className={
+									"cursor-pointer border-b border-transparent hover:border-blue-200 hover:text-blue-700"
+								}
+								activeClassName={"text-blue-200 border-blue-200 bg-gray-800"}
+								exact={link.exact}
+							>
+								{link.title}
+							</ActiveLink>
+						</li>
+					))}
+				</ul>
+			</nav>
 			<div className="flex items-center space-x-4">
-				<Suspense>
+				<Suspense fallback={<Loader />}>
 					<SearchBar />
 				</Suspense>
 				<div className="text-blue-500">
@@ -49,6 +50,6 @@ export const NavBar = async () => {
 					</Link>
 				</div>
 			</div>
-		</nav>
+		</div>
 	);
 };

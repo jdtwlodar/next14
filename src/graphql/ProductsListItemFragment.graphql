@@ -10,5 +10,6 @@ fragment ProductsListItemFragment on Product {
 		width
 		height
 	}
+	description
 	price
 }
