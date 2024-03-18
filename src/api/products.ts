@@ -6,6 +6,7 @@ import {
 	ProductsGetByCollectionSlugDocument,
 	ProductsGetListSuggestedByCategoryDocument,
 	ProductsGetListBySearchDocument,
+	GetProductsCategoriesListDocument,
 	//type ProductsListItemFragmentFragment,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/gql";
@@ -74,35 +75,14 @@ export const getProductsByCollectionSlug = async (slug: string) => {
 	});
 	return graphQLResponse.collection;
 };
+export const getProductsCategoryList = async () => {
+	const graphQLResponse = await executeGraphql({
+		query: GetProductsCategoriesListDocument,
+		variables: {},
+	});
+	return graphQLResponse.categories.data;
+};
 
-/* export const PRODUCTS_PER_PAGE = 20;
-export const getProductsForPage = async (page: number) => {
-	const res = await fetch(
-		`https://naszsklep-api.vercel.app/api/products?take=${PRODUCTS_PER_PAGE}&offset=${PRODUCTS_PER_PAGE * (page - 1)}`,
-	);
-	const productsResponse = (await res.json()) as ProductResponseItem[];
-	const products = productsResponse.map((product) => productResponseItemToProductItemType(product));
-	return products;
-}; */
-/* export const getTotalProductsCount = async (count = 0): Promise<number> => {
-	const PER_FETCH = 100;
-
-	const res = await fetch(
-		`https://naszsklep-api.vercel.app/api/products?take=${PER_FETCH}&offset=${count}`,
-	);
-	const data = (await res.json()) as ProductResponseItem[];
-
-	const newCount = count + data.length;
-
-	return newCount;
-}; */
-
-/* export const getProductById = async (id: ProductResponseItem["id"]) => {
-	const res = await fetch(`https://naszsklep-api.vercel.app/api/products/${id}`);
-
-	const productResponse = (await res.json()) as ProductResponseItem;
-	return productResponseItemToProductItemType(productResponse);
-}; */
 export const getProductById = async (id: ProductResponseItem["id"]) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductGetByIdDocument,

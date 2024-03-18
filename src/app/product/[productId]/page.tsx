@@ -9,6 +9,7 @@ import { Loader } from "@/components/atoms/Loader";
 import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
 
 import { addProductToCart, getOrCreateCart } from "@/api/cart";
+import { changeItemQuantity } from "@/app/cart/actions";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -40,6 +41,14 @@ export default async function SingleProductPage({ params }: { params: { productI
 		"use server";
 		const cart = await getOrCreateCart();
 		await addProductToCart(cart.id, params.productId);
+
+		// remove when api starts working correctly
+		const currentProductQuantity = cart.items.filter(
+			(item) => item.product.id === params.productId,
+		);
+		if (currentProductQuantity[0] && currentProductQuantity[0].quantity)
+			await changeItemQuantity(cart.id, params.productId, currentProductQuantity[0].quantity + 1);
+
 		revalidateTag("cart");
 	}
 	return (
@@ -51,7 +60,7 @@ export default async function SingleProductPage({ params }: { params: { productI
 						<div>{product.images[0] && <ProductSingleImage {...product.images[0]} />}</div>
 						<form action={addProductToCartAction}>
 							<ProductListItemDescription product={product} />
-
+							<p className="mt-1 text-sm text-gray-500">{product.description}</p>
 							<AddToCartButton />
 						</form>
 					</div>

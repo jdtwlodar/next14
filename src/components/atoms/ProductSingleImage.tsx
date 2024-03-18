@@ -6,9 +6,10 @@ export const ProductSingleImage = ({ url, alt }: { url: string; alt: string }) =
 			<NextImage
 				width={200}
 				height={200}
-				priority
+				quality={75}
 				src={url}
 				alt={alt}
+				loading="lazy"
 				className="h-full w-full object-contain object-center p-4"
 			/>
 		</div>
