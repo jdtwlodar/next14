@@ -371,6 +371,8 @@ export type ProductsGetListSuggestedByCategoryQueryVariables = Exact<{
 export type ProductsGetListSuggestedByCategoryQuery = { category?: { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> }> } | null };
 
 export type ProductsGetListWithPaginationQueryVariables = Exact<{
+  orderBy?: InputMaybe<ProductSortBy>;
+  order?: InputMaybe<SortDirection>;
   count: Scalars['Int']['input'];
 }>;
 
@@ -732,8 +734,8 @@ export const ProductsGetListSuggestedByCategoryDocument = new TypedDocumentStrin
   price
 }`) as unknown as TypedDocumentString<ProductsGetListSuggestedByCategoryQuery, ProductsGetListSuggestedByCategoryQueryVariables>;
 export const ProductsGetListWithPaginationDocument = new TypedDocumentString(`
-    query ProductsGetListWithPagination($count: Int!) {
-  products(take: $count) {
+    query ProductsGetListWithPagination($orderBy: ProductSortBy, $order: SortDirection, $count: Int!) {
+  products(orderBy: $orderBy, order: $order, take: $count) {
     data {
       ...ProductsListItemFragment
     }
