@@ -1,14 +1,16 @@
 "use client";
-import { useCallback, type ChangeEvent } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { type ChangeEvent } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { type Route } from "next";
 
 const options = ["price ASC", "price DESC"];
+const options_rating = ["rating ASC", "rating DESC"];
 
 export const ProductListSortSelect = ({ sort }: { sort: string }) => {
 	const router = useRouter();
 	const pathname = usePathname();
-	const searchParams = useSearchParams();
-	const createUrlFromSortString = useCallback((sortString: string): string => {
+	const createUrlFromSortString = (sortString: string): string => {
 		const [field, order] = sortString.split(" ");
 
 		let orderBy = "" || field;
@@ -24,48 +26,41 @@ export const ProductListSortSelect = ({ sort }: { sort: string }) => {
 				orderBy = field;
 				sortOrder = "DESC";
 				break;
+			case "":
+				orderBy = "";
+				sortOrder = "";
+				break;
 			default:
 				break;
 		}
-		const test = new URLSearchParams(`orderBy=${orderBy}&order=${sortOrder}`);
+		const test = `${pathname}?orderBy=${orderBy}&order=${sortOrder}`;
 		return test as unknown as string;
-	}, []);
-	const createQueryString = useCallback(
-		(name: string, value: string) => {
-			const params = new URLSearchParams(searchParams.toString());
-			params.set(name, value);
-
-			return params.toString();
-		},
-		[searchParams],
-	);
+	};
 
 	const onSelect = (event: ChangeEvent<HTMLSelectElement>) => {
 		// now you got a read/write object
-		const current = new URLSearchParams(Array.from(searchParams.entries())); // -> has to use this form
-
-		// update as necessary
 		const value = event.target.value.trim();
+		// update as necessary
 
-		/* 	if (!value) {
-			current.delete("orderBy");
-		} else {
-			current.set("orderBy", event.target.value);
-		} */
+		const sortt = value.toString();
 
-		const sortt = createUrlFromSortString(value.toString());
-		const test = new URLSearchParams(sortt);
-		const query = sortt ? `?${test}` : "";
+		const query = sortt ? createUrlFromSortString(sortt) : pathname;
 		//needfix
+		console.log("sortt", sortt, "query", query, "ppp", pathname);
 
-		router.push(pathname + query);
+		router.push(query as Route);
 	};
 
 	return (
 		<select value={sort} onChange={onSelect}>
 			<option value="">None</option>
 			{options.map((opt) => (
-				<option key={opt} value={opt}>
+				<option data-testid="sort-by-price" key={opt} value={opt}>
+					{opt}
+				</option>
+			))}
+			{options_rating.map((opt) => (
+				<option data-testid="sort-by-rating" key={opt} value={opt}>
 					{opt}
 				</option>
 			))}

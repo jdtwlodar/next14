@@ -17,6 +17,7 @@ export default async function ProductsPage({
 }) {
 	const pageNumber = parseInt(params.pageNumber, 10);
 	// const product = await getProductsForPage(20);
+
 	const product = await getProductsForPage(
 		searchParams?.orderBy
 			? {
@@ -26,6 +27,7 @@ export default async function ProductsPage({
 			: { orderBy: "DEFAULT", order: "DESC" },
 		20,
 	);
+
 	return (
 		<div className="bg-white">
 			<ProductListSortSelect sort={`${searchParams.orderBy} ${searchParams.order}`} />

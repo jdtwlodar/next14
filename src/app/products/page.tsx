@@ -15,9 +15,13 @@ export const generateStaticParams = async () => {
 	}));
 };
 
-export default async function ProductsPage(searchParams: {
-	orderBy: ProductSortBy;
-	order: string;
+export default async function ProductsPage({
+	searchParams,
+}: {
+	searchParams: {
+		orderBy: ProductSortBy;
+		order: string;
+	};
 }) {
 	const pageNumber = 1;
 	const product = await getProductsForPage(
@@ -27,9 +31,9 @@ export default async function ProductsPage(searchParams: {
 					order: searchParams.order as SortDirection,
 				}
 			: { orderBy: "DEFAULT", order: "DESC" },
-		4,
+		20,
 	);
-	console.log("product", product);
+
 	return (
 		<div className="bg-white">
 			<Suspense fallback={<Loader />}>
