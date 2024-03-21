@@ -10,6 +10,7 @@ import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
 
 import { addProductToCart } from "@/api/cart";
 import { getOrCreateCart, changeItemQuantity } from "@/api/actions";
+import { RatingForm } from "@/components/organisms/RatingForm";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -70,6 +71,9 @@ export default async function SingleProductPage({ params }: { params: { productI
 						<SuggestedProducts />
 					</Suspense>
 				</aside>
+				<Suspense fallback={<Loader />}>
+					<RatingForm />
+				</Suspense>
 			</div>
 		</div>
 	);

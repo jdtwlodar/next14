@@ -12,4 +12,5 @@ fragment ProductsListItemFragment on Product {
 	}
 	description
 	price
+	rating
 }
