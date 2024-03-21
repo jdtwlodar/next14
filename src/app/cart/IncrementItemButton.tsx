@@ -1,8 +1,7 @@
 "use client";
 import { useOptimistic, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { changeItemQuantity } from "./actions";
-import { Icon } from "@/components/atoms/Icon";
+import { changeItemQuantity } from "@/api/actions";
 
 export const IncrementItemButton = ({
 	cartId,
@@ -13,20 +12,21 @@ export const IncrementItemButton = ({
 	productId: string;
 	quantity: number;
 }) => {
-	const [_isPending, startTransition] = useTransition();
+	const [isPending, startTransition] = useTransition();
 	const [quantityOptimistic, setQuantityOptimistic] = useOptimistic(
 		quantity,
 		(_prevStateOptimistic, newStateOptimistic: number) => {
 			return newStateOptimistic;
 		},
 	);
+
 	const router = useRouter();
 	return (
 		<form className="flex w-24 gap-2">
 			<button
-				type="submit"
-				className="block h-3 w-3 bg-slate-700 "
-				formAction={() => {
+				type="button"
+				className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-400 text-2xl font-bold text-white shadow-lg  transition-transform duration-150 hover:opacity-50 disabled:cursor-not-allowed disabled:opacity-45"
+				onClick={() => {
 					startTransition(async () => {
 						setQuantityOptimistic(quantityOptimistic + 1);
 
@@ -35,18 +35,15 @@ export const IncrementItemButton = ({
 					});
 				}}
 				data-testid="increment"
-				disabled={quantityOptimistic === 100}
+				disabled={quantityOptimistic === 100 || isPending}
 			>
-				<Icon
-					name="plus"
-					className="rounded-md border bg-slate-700 p-1 text-white  disabled:bg-slate-400"
-				/>
+				+
 			</button>
 			<div data-testid="quantity">{quantityOptimistic}</div>
 			<div>
 				<button
 					type="submit"
-					className="h-3 w-3 bg-slate-700 "
+					className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-400 text-2xl font-bold text-white shadow-lg  transition-transform duration-150 hover:opacity-50 disabled:cursor-not-allowed disabled:opacity-45"
 					disabled={quantityOptimistic < 1}
 					formAction={() => {
 						startTransition(async () => {
@@ -58,10 +55,7 @@ export const IncrementItemButton = ({
 					}}
 					data-testid="decrement"
 				>
-					<Icon
-						name="minus"
-						className=" rounded-md border bg-slate-700 p-1 text-white  disabled:bg-slate-400"
-					/>
+					-
 				</button>
 			</div>
 		</form>

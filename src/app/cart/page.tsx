@@ -7,7 +7,7 @@ import { GetCardByIdDocument } from "@/gql/graphql";
 import { formatMoney } from "@/utils/money";
 import { IncrementItemButton } from "@/app/cart/IncrementItemButton";
 import { RemoveProductButton } from "@/app/cart/RemoveProductButton";
-import { handleStripePaymentAction } from "@/app/cart/actions";
+import { handleStripePaymentAction } from "@/api/actions";
 import { Loader } from "@/components/atoms/Loader";
 
 export default async function CartPage() {
@@ -44,7 +44,7 @@ export default async function CartPage() {
 										<Link href={`/product/${item.product.id}`}>{item.product.name}</Link>
 									</div>
 									<div>
-										<div className="flex h-8 w-64">
+										<div className="flex items-center">
 											<IncrementItemButton
 												cartId={cart.id}
 												productId={item.product.id}
