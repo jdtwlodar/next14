@@ -1,6 +1,5 @@
 import { type Route } from "next";
 import { Suspense } from "react";
-import Link from "next/link";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { SearchBar } from "@/components/molecules/SearchBar";
 import { Loader } from "@/components/atoms/Loader";
@@ -28,7 +27,7 @@ export const NavBar = async () => {
 							<ActiveLink
 								href={link.path as Route<string>} // Fix: Update the type of href to be of type Route<string>
 								className={
-									"cursor-pointer border-b border-transparent hover:border-blue-200 hover:text-blue-700"
+									"mx-2 cursor-pointer border-b border-transparent px-3 hover:border-blue-200 hover:text-blue-700"
 								}
 								activeClassName={"text-blue-200 border-blue-200 bg-gray-800"}
 								exact={link.exact}
@@ -44,10 +43,18 @@ export const NavBar = async () => {
 					<SearchBar />
 				</Suspense>
 				<div className="text-blue-500">
-					<Link href="/cart">
-						<Icon name="shopping-cart" />
-						{cart && <sup>{allItemsQuantity}</sup>}
-					</Link>
+					<ActiveLink
+						href="/cart"
+						className={
+							" ml-3 flex cursor-pointer border-b border-transparent px-2 hover:border-blue-200 hover:text-blue-700"
+						}
+						activeClassName={"text-blue-200 border-blue-200 bg-gray-800"}
+					>
+						<span>
+							<Icon name="shopping-cart" />
+							{cart && <sup>{allItemsQuantity}</sup>}
+						</span>
+					</ActiveLink>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,16 @@
-query ProductsGetListWithPagination($count: Int!) {
-	products(take: $count) {
+# query ProductsGetListWithPagination($count: Int!) {
+# 	products(take: $count) {
+# 		data {
+# 			...ProductsListItemFragment
+# 		}
+# 		meta {
+# 			count
+# 			total
+# 		}
+# 	}
+# }
+query ProductsGetListWithPagination($orderBy: ProductSortBy, $order: SortDirection, $count: Int!) {
+	products(orderBy: $orderBy, order: $order, take: $count) {
 		data {
 			...ProductsListItemFragment
 		}

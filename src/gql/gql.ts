@@ -29,7 +29,7 @@ const documents = {
     "query ProductsGetList {\n  products(take: 10) {\n    data {\n      ...ProductsListItemFragment\n    }\n  }\n}": types.ProductsGetListDocument,
     "query ProductsGetListBySearch($search: String!, $count: Int!) {\n  products(search: $search, take: $count) {\n    data {\n      ...ProductsListItemFragment\n    }\n    meta {\n      count\n      total\n    }\n  }\n}": types.ProductsGetListBySearchDocument,
     "query ProductsGetListSuggestedByCategory($slug: String!) {\n  category(slug: $slug) {\n    products {\n      ...ProductsListItemFragment\n    }\n  }\n}": types.ProductsGetListSuggestedByCategoryDocument,
-    "query ProductsGetListWithPagination($count: Int!) {\n  products(take: $count) {\n    data {\n      ...ProductsListItemFragment\n    }\n    meta {\n      count\n      total\n    }\n  }\n}": types.ProductsGetListWithPaginationDocument,
+    "query ProductsGetListWithPagination($orderBy: ProductSortBy, $order: SortDirection, $count: Int!) {\n  products(orderBy: $orderBy, order: $order, take: $count) {\n    data {\n      ...ProductsListItemFragment\n    }\n    meta {\n      count\n      total\n    }\n  }\n}": types.ProductsGetListWithPaginationDocument,
     "fragment ProductsListItemFragment on Product {\n  id\n  name\n  categories {\n    name\n  }\n  images {\n    url\n    alt\n    width\n    height\n  }\n  description\n  price\n}": types.ProductsListItemFragmentFragmentDoc,
 };
 
@@ -96,7 +96,7 @@ export function graphql(source: "query ProductsGetListSuggestedByCategory($slug:
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductsGetListWithPagination($count: Int!) {\n  products(take: $count) {\n    data {\n      ...ProductsListItemFragment\n    }\n    meta {\n      count\n      total\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListWithPaginationDocument;
+export function graphql(source: "query ProductsGetListWithPagination($orderBy: ProductSortBy, $order: SortDirection, $count: Int!) {\n  products(orderBy: $orderBy, order: $order, take: $count) {\n    data {\n      ...ProductsListItemFragment\n    }\n    meta {\n      count\n      total\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListWithPaginationDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

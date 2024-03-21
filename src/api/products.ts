@@ -7,6 +7,8 @@ import {
 	ProductsGetListSuggestedByCategoryDocument,
 	ProductsGetListBySearchDocument,
 	GetProductsCategoriesListDocument,
+	type SortDirection,
+	type ProductSortBy,
 	//type ProductsListItemFragmentFragment,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/gql";
@@ -29,13 +31,22 @@ export const getProductsList = async () => {
 	return graphqlResponse.products.data;
 };
 
-export const getProductsForPage = async (count: number = PRODUCTS_PER_PAGE) => {
+export const getProductsForPage = async (
+	orderBy?: { orderBy: ProductSortBy; order?: SortDirection },
+
+	count: number = PRODUCTS_PER_PAGE,
+) => {
 	const graphQLResponse = await executeGraphql({
 		query: ProductsGetListWithPaginationDocument,
-		variables: { count },
+		variables: {
+			orderBy: orderBy?.orderBy || "DEFAULT",
+			order: orderBy?.order || "DESC",
+			count,
+		},
 	});
 	return graphQLResponse.products;
 };
+
 export const getProductsListBySearch = async (
 	search: string,
 	count: number = PRODUCTS_PER_PAGE,
