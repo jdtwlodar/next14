@@ -2,6 +2,7 @@
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
+import { revalidateTag } from "next/cache";
 import { executeGraphql } from "@/api/gql";
 import {
 	CartChangeItemQuantityDocument,
@@ -9,6 +10,7 @@ import {
 	type CartOrderFragmentFragment,
 } from "@/gql/graphql";
 import { createCart, getCartById } from "@/api/cart";
+import { addSingleProductReview } from "@/api/products";
 
 export const getCartFromCookies = async () => {
 	const cartId = cookies().get("cartId")?.value;
@@ -96,4 +98,19 @@ export async function handleStripePaymentAction() {
 	}
 	cookies().set("cartId", "");
 	redirect(session.url);
+}
+
+export async function ProductAddReviewAction(
+	name: string,
+	content: string,
+	email: string,
+	productId: string,
+	rating: string,
+	headline: string,
+) {
+	"use server";
+
+	await addSingleProductReview(name, content, email, productId, rating, headline);
+
+	revalidateTag("product");
 }

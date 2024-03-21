@@ -56,6 +56,9 @@ export default async function SingleProductPage({ params }: { params: { productI
 		<div className="flex min-h-screen flex-col items-center justify-center py-2">
 			<div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
 				<article>
+					<Suspense fallback={<Loader />}>
+						<RatingForm product={product} />
+					</Suspense>
 					<h1 className="text-6xl font-bold">{product?.name}</h1>
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 						<div>{product.images[0] && <ProductSingleImage {...product.images[0]} />}</div>
@@ -71,9 +74,6 @@ export default async function SingleProductPage({ params }: { params: { productI
 						<SuggestedProducts />
 					</Suspense>
 				</aside>
-				<Suspense fallback={<Loader />}>
-					<RatingForm />
-				</Suspense>
 			</div>
 		</div>
 	);
