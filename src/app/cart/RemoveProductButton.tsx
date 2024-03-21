@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { removeItem } from "./actions";
+import { removeItem } from "../../api/actions";
 import { Icon } from "@/components/atoms/Icon";
 
 export function RemoveProductButton({ cartId, productId }: { productId: string; cartId: string }) {

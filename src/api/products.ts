@@ -26,7 +26,7 @@ export const getProductsList = async () => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductsGetListDocument,
 		variables: {},
-		next: { revalidate: 550 },
+		next: { revalidate: 10550 },
 	});
 	return graphqlResponse.products.data;
 };

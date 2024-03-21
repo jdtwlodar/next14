@@ -3,8 +3,7 @@ import { Suspense } from "react";
 import { ActiveLink } from "@/components/atoms/ActiveLink";
 import { SearchBar } from "@/components/molecules/SearchBar";
 import { Loader } from "@/components/atoms/Loader";
-import { Icon } from "@/components/atoms/Icon";
-import { getCartFromCookies } from "@/api/cart";
+import { getCartFromCookies } from "@/api/actions";
 
 export const NavBar = async () => {
 	const navLinks = [
@@ -50,10 +49,8 @@ export const NavBar = async () => {
 						}
 						activeClassName={"text-blue-200 border-blue-200 bg-gray-800"}
 					>
-						<span>
-							<Icon name="shopping-cart" />
-							{cart && <sup>{allItemsQuantity}</sup>}
-						</span>
+						<span>Koszyk</span>
+						<span>{cart && <sup>{allItemsQuantity}</sup>}</span>
 					</ActiveLink>
 				</div>
 			</div>
