@@ -9,6 +9,7 @@ import {
 	GetProductsCategoriesListDocument,
 	type SortDirection,
 	type ProductSortBy,
+	ProductAddReviewDocument,
 	//type ProductsListItemFragmentFragment,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/gql";
@@ -100,4 +101,26 @@ export const getProductById = async (id: ProductResponseItem["id"]) => {
 		variables: { id },
 	});
 	return graphqlResponse.product;
+};
+
+export const addSingleProductReview = async (
+	name: string,
+	content: string,
+	email: string,
+	productId: string,
+	rating: string,
+	headline: string,
+) => {
+	const graphqlResponse = await executeGraphql({
+		query: ProductAddReviewDocument,
+		variables: {
+			author:name,
+			description: content,
+			email,
+			productId,
+			rating: parseInt(rating),
+			title: headline,
+		},
+	});
+	return graphqlResponse;
 };

@@ -39,7 +39,10 @@ export const IncrementItemButton = ({
 			>
 				+
 			</button>
-			<div data-testid="quantity">{quantityOptimistic}</div>
+			<div data-testid="quantity">
+				{isPending && <span aria-busy="true"></span>}
+				{quantityOptimistic}
+			</div>
 			<div>
 				<button
 					type="submit"
