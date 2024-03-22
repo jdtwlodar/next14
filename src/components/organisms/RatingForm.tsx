@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { type ProductsListItemFragmentFragment } from "@/gql/graphql";
 import { RatingInputStars } from "@/components/atoms/RatingInputStars";
-//import { ProductAddReviewAction } from "@/api/actions";
+import { ProductAddReviewAction } from "@/api/actions";
 export const RatingForm = ({ product }: { product: ProductsListItemFragmentFragment }) => {
 	const [formData] = useState(new FormData());
 	console.log("form data in form", formData, formData.values());
@@ -20,6 +20,10 @@ export const RatingForm = ({ product }: { product: ProductsListItemFragmentFragm
 		formData.set("productId", product.id || "0");
 		console.log(
 			"form in submit",
+			"type prod id",
+			typeof formData.get("productId"),
+			"type name",
+			typeof formData.get("name"),
 			formData.get("productId"),
 			formData.get("content"),
 			formData.get("name"),
@@ -27,14 +31,14 @@ export const RatingForm = ({ product }: { product: ProductsListItemFragmentFragm
 			formData.get("rating"),
 			formData.get("headline") || "no title",
 		);
-		// await ProductAddReviewAction(
-		// 	product.id || "0",
-		// 	formData.get("content") as string,
-		// 	formData.get("name") as string,
-		// 	formData.get("email") as string,
-		// 	formData.get("rating") as string,
-		// 	formData.get("headline") as string,
-		// );
+		await ProductAddReviewAction(
+			formData.get("name") as string,
+			formData.get("content") as string,
+			formData.get("email") as string,
+			product.id,
+			formData.get("rating") as string,
+			formData.get("headline") as string,
+		);
 	};
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
