@@ -99,6 +99,9 @@ export const getProductById = async (id: ProductResponseItem["id"]) => {
 	const graphqlResponse = await executeGraphql({
 		query: ProductGetByIdDocument,
 		variables: { id },
+		next: {
+			tags: ["product"],
+		},
 	});
 	return graphqlResponse.product;
 };
@@ -114,7 +117,7 @@ export const addSingleProductReview = async (
 	const graphqlResponse = await executeGraphql({
 		query: ProductAddReviewDocument,
 		variables: {
-			author:name,
+			author: name,
 			description: content,
 			email,
 			productId,
