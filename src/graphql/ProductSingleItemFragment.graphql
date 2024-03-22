@@ -13,4 +13,13 @@ fragment ProductSingleItemFragment on Product {
 	}
 	price
 	rating
+	reviews {
+		author
+		createdAt
+		description
+		id
+		rating
+		title
+		email
+	}
 }

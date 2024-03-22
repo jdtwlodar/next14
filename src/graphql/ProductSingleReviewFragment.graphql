@@ -1,0 +1,9 @@
+fragment ProductSingleReviewFragment on Review {
+	author
+	createdAt
+	description
+	id
+	rating
+	title
+	email
+}

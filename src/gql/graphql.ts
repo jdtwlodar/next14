@@ -327,9 +327,9 @@ export type ProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByIdQuery = { product?: { id: string, name: string, description: string, price: number, rating?: number | null, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> } | null };
+export type ProductGetByIdQuery = { product?: { id: string, name: string, description: string, price: number, rating?: number | null, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }>, reviews: Array<{ author: string, createdAt: unknown, description: string, id: string, rating: number, title: string, email: string }> } | null };
 
-export type ProductSingleItemFragmentFragment = { id: string, name: string, description: string, price: number, rating?: number | null, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }> };
+export type ProductSingleItemFragmentFragment = { id: string, name: string, description: string, price: number, rating?: number | null, categories: Array<{ name: string }>, images: Array<{ url: string, alt: string, width: number, height: number }>, reviews: Array<{ author: string, createdAt: unknown, description: string, id: string, rating: number, title: string, email: string }> };
 
 export type ProductAddReviewMutationVariables = Exact<{
   author: Scalars['String']['input'];
@@ -342,6 +342,8 @@ export type ProductAddReviewMutationVariables = Exact<{
 
 
 export type ProductAddReviewMutation = { reviewCreate: { items: Array<{ product: { id: string } }> } };
+
+export type ProductSingleReviewFragmentFragment = { author: string, createdAt: unknown, description: string, id: string, rating: number, title: string, email: string };
 
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -445,8 +447,28 @@ export const ProductSingleItemFragmentFragmentDoc = new TypedDocumentString(`
   }
   price
   rating
+  reviews {
+    author
+    createdAt
+    description
+    id
+    rating
+    title
+    email
+  }
 }
     `, {"fragmentName":"ProductSingleItemFragment"}) as unknown as TypedDocumentString<ProductSingleItemFragmentFragment, unknown>;
+export const ProductSingleReviewFragmentFragmentDoc = new TypedDocumentString(`
+    fragment ProductSingleReviewFragment on Review {
+  author
+  createdAt
+  description
+  id
+  rating
+  title
+  email
+}
+    `, {"fragmentName":"ProductSingleReviewFragment"}) as unknown as TypedDocumentString<ProductSingleReviewFragmentFragment, unknown>;
 export const ProductsListItemFragmentFragmentDoc = new TypedDocumentString(`
     fragment ProductsListItemFragment on Product {
   id
@@ -609,6 +631,15 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
   }
   price
   rating
+  reviews {
+    author
+    createdAt
+    description
+    id
+    rating
+    title
+    email
+  }
 }`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
 export const ProductAddReviewDocument = new TypedDocumentString(`
     mutation ProductAddReview($author: String!, $description: String!, $email: String!, $productId: ID!, $rating: Int!, $title: String!) {

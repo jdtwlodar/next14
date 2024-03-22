@@ -20,7 +20,7 @@ export const ProductListItem = ({ product }: ProductListItemProps) => {
 				<div>
 					{product.images[0] && <ProductCoverImage {...product.images[0]} />}
 					<ProductListItemDescription product={product} />
-					<ProductRatingItem product={product} />
+					{product.rating && <ProductRatingItem rating={product.rating} />}
 				</div>
 			</Link>
 		</li>
