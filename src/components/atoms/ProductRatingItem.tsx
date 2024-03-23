@@ -21,7 +21,9 @@ export const ProductRatingItem = ({ rating }: { rating: number }) => {
 		<div>
 			{rating && (
 				<div className="flex justify-between">
-					<div data-testid="product-rating">{ratingParseToInt} / 5</div>
+					<div data-testid="product-rating" className="mr-2">
+						{ratingParseToInt} / 5
+					</div>
 					<div className="flex justify-between">{generateStarRating(ratingParseToInt)}</div>
 				</div>
 			)}
