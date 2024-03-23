@@ -73,7 +73,7 @@ export default async function SingleProductPage({ params }: { params: { productI
 					</Suspense>
 					<Suspense fallback={<Loader />}>
 						<RatingForm product={product} />
-						{product.reviews.slice(4).map((review) => (
+						{product.reviews.slice(-4).map((review) => (
 							<ReviewSingle key={review.id} review={review} />
 						))}
 					</Suspense>

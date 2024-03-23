@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import "@/app/assets/css/globals.css";
 import { NavBar } from "@/components/organisms/NavBar";
 
-const open_sans = Open_Sans({ subsets: ["latin", "latin-ext"] });
+const font_class = Roboto_Mono({ subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
 	title: "Super shop",
@@ -17,11 +17,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={open_sans.className}>
+			<body className={`${font_class.className} min-h-screen bg-blue-950 pt-40 text-white`}>
 				<NavBar />
-				<main>{children}</main>
+				<main className="min-h-[94vh] pb-6">{children}</main>
 				<footer>
-					<div className="bg-gray-800 p-4 text-white"> R copyrights </div>
+					<div className="bg-pink-600 p-4 text-white"> R copyrights </div>
 				</footer>
 			</body>
 		</html>

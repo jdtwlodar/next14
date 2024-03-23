@@ -16,7 +16,7 @@ export default async function OpenGraphImageForSingleProduct({
 	}
 	return new ImageResponse(
 		(
-			<div tw="flex bg-white w-full h-full justify-items-center items-center">
+			<div tw="flex bg-pink-600 text-white w-full h-full justify-items-center items-center">
 				<div tw="flex items-center justify-center border-gray-300 border-5  w-1/2">
 					{product.images[0] && (
 						<img
@@ -28,8 +28,8 @@ export default async function OpenGraphImageForSingleProduct({
 					)}
 				</div>
 
-				<h2 tw="flex flex-col text-gray-900 text-left pr-5">
-					<span tw="text-gray-500 text-xl">{product?.categories[0]?.name}</span>
+				<h2 tw="flex flex-col text-left pr-5">
+					<span tw="text-gray-300 text-xl">{product?.categories[0]?.name}</span>
 					<span tw="text-3xl">{product.name}</span>
 					<span tw="text-1xl">{product.description}</span>
 				</h2>

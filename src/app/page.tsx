@@ -5,10 +5,15 @@ import { ProductsList } from "@/components/organisms/ProductsList";
 export default async function HomePage() {
 	const products = await getProductsList();
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center py-2">
+		<div className="flex  flex-col items-center justify-center py-2">
 			<div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-				<h1 className="text-6xl font-bold">Welcome to our store</h1>
-				<CollectionBox />
+				<h1 className="mb-10 mt-6 bg-gradient-to-r from-white to-pink-600  bg-clip-text text-6xl font-bold text-transparent">
+					Welcome to our store
+				</h1>
+
+				<div className="w-full py-12 lg:px-10 xl:px-24 ">
+					<CollectionBox />
+				</div>
 				{products && <ProductsList products={products.slice(-4)} />}
 			</div>
 		</div>

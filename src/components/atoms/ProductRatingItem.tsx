@@ -10,7 +10,7 @@ export const ProductRatingItem = ({ rating }: { rating: number }) => {
 			stars.push(
 				<Star
 					key={i}
-					className={`${i <= itemrating ? "fill-current text-green-600" : "fill-current text-green-100"}`}
+					className={`${i <= itemrating ? "fill-current text-green-700" : "fill-current text-green-100"}`}
 				/>,
 			);
 		}

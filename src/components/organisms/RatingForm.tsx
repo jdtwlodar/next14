@@ -7,19 +7,17 @@ import { RatingInputStars } from "@/components/atoms/RatingInputStars";
 import { ProductAddReviewAction } from "@/api/actions";
 export const RatingForm = ({ product }: { product: ProductsListItemFragmentFragment }) => {
 	const [formData] = useState(new FormData());
-	console.log("form data in form", formData, formData.values());
 	const [selectedOption, setSelectedOption] = useState("");
 	const [showForm, setShowForm] = useState(true);
 
 	const handleratingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSelectedOption(e.target.value);
 		formData.set("rating", e.target.value);
-		//setFormData(formData);
 	};
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		formData.set("productId", product.id || "0");
-
+		//TODO fix in future
 		await ProductAddReviewAction(
 			formData.get("name") as string,
 			formData.get("content") as string,
