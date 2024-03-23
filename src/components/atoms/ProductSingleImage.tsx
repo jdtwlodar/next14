@@ -2,7 +2,7 @@ import NextImage from "next/image";
 
 export const ProductSingleImage = ({ url, alt }: { url: string; alt: string }) => {
 	return (
-		<div className="aspect-square overflow-hidden rounded-md border bg-slate-50 hover:bg-slate-100">
+		<div className="transform-all aspect-square transform overflow-hidden rounded-md border border-pink-600 duration-300 hover:scale-105">
 			<NextImage
 				width={200}
 				height={200}

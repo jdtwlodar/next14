@@ -24,7 +24,7 @@ export default async function CartPage() {
 
 	return (
 		<div>
-			<h1>Order #{cart.id} summary</h1>
+			<h1 className="my-8 py-4">Order #{cart.id} summary</h1>
 			<Suspense fallback={<Loader />}>
 				<div>
 					<div>

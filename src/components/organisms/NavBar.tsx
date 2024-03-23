@@ -30,7 +30,7 @@ export const NavBar = async () => {
 									"mx-2 cursor-pointer rounded-md border-b border-transparent px-3 py-2 text-white hover:border-blue-800 hover:bg-gradient-to-t hover:from-blue-800 hover:to-pink-600 hover:text-white hover:opacity-80"
 								}
 								activeClassName={
-									"text-blue-200 border-blue-800 bg-gradient-to-t from-blue-800 to-pink-600 "
+									"text-blue-200 border-blue-800 bg-gradient-to-t from-blue-800 to-pink-600"
 								}
 								exact={link.exact}
 							>

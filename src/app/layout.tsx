@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${font_class.className} min-h-screen bg-blue-950 pt-40 text-white`}>
+			<body className={`${font_class.className} min-h-screen bg-blue-950 pt-[92px] text-white`}>
 				<NavBar />
 				<main className="min-h-[94vh] pb-6">{children}</main>
 				<footer>

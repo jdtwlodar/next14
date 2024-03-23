@@ -23,7 +23,7 @@ export default async function CollectionSinglePage({ params }: { params: { colle
 	}
 	return (
 		<div>
-			<div className="bg-gray-100">
+			<div className="bg-pink-600 text-white">
 				<div className="mx-auto max-w-7xl px-8">
 					<div className="mx-auto py-8">
 						<h1 className="text-bold">{collection.name}</h1>

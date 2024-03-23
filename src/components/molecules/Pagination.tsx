@@ -19,8 +19,8 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: Pa
 				<li key={i}>
 					<ActiveLink
 						href={link as Route<string>}
-						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-						activeClassName="border-indigo-500 text-indigo-600"
+						className="te inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700"
+						activeClassName="border-indigo-500 text-pink-600"
 						exact={true}
 					>
 						{i}
@@ -32,14 +32,14 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: Pa
 	};
 
 	return (
-		<nav aria-label="pagination" role="navigation" className="mx-auto my-4">
+		<nav aria-label="pagination" role="navigation" className="mx-auto my-6">
 			<ul className="mx-auto flex justify-center space-x-2">
 				{currentPage > 1 && (
 					<>
 						<li>
 							<ActiveLink
-								className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-								activeClassName="border-indigo-500 text-indigo-600"
+								className="te inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700"
+								activeClassName="border-indigo-500 text-pink-600"
 								href={`${url}1` as Route<string>}
 								exact={true}
 							>
@@ -48,8 +48,8 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: Pa
 						</li>
 						<li>
 							<ActiveLink
-								className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-								activeClassName="border-indigo-500 text-indigo-600"
+								className="te inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700"
+								activeClassName="border-indigo-500 text-pink-600"
 								href={`${url}${currentPage - 1}` as Route<string>}
 								exact={true}
 							>
@@ -62,8 +62,8 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: Pa
 				{currentPage < totalPages && (
 					<li>
 						<ActiveLink
-							className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-							activeClassName="border-indigo-500 text-indigo-600"
+							className="te inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700"
+							activeClassName="border-indigo-500 text-pink-600"
 							href={`${url}${currentPage + 1}` as Route<string>}
 							exact={true}
 						>
@@ -74,8 +74,8 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: Pa
 				{currentPage < totalPages && (
 					<li>
 						<ActiveLink
-							className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-							activeClassName="border-indigo-500 text-indigo-600"
+							className="te inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700"
+							activeClassName="border-indigo-500 text-pink-600"
 							href={`${url}${totalPages}` as Route<string>}
 							exact={true}
 						>

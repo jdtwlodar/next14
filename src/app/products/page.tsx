@@ -38,7 +38,7 @@ export default async function ProductsPage({
 		<div className="">
 			<Suspense fallback={<Loader />}>
 				<ProductListSortSelect sort={`${searchParams.orderBy} ${searchParams.order}`} />
-				<div className="  mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+				<div className="  mx-auto my-8 max-w-2xl px-4 py-16 py-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 					<h1 className="text-2xl font-bold tracking-tight text-gray-900">our products</h1>
 					<ProductsList products={product.data.slice(0, 4)} />
 

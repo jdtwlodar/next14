@@ -40,11 +40,11 @@ export default async function CategoryProductPage({
 	}
 	return (
 		<div>
-			<div className="bg-gray-100">
+			<div className="bg-pink-600 text-white">
 				<div className="mx-auto max-w-7xl px-8">
 					<div className="mx-auto py-8">
 						<h1 className="text-bold">{category.name}</h1>
-						<div className="py-2 text-center">{category.description}</div>
+						<div className="py-2">{category.description}</div>
 					</div>
 				</div>
 			</div>
