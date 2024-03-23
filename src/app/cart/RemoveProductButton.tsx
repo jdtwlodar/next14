@@ -2,7 +2,8 @@
 
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { removeItem } from "../../api/actions";
+import { CircleX } from "lucide-react";
+import { removeItem } from "@/api/actions";
 
 export function RemoveProductButton({ cartId, productId }: { productId: string; cartId: string }) {
 	const router = useRouter();
@@ -17,9 +18,9 @@ export function RemoveProductButton({ cartId, productId }: { productId: string; 
 					router.refresh();
 				})
 			}
-			className="text-sm font-medium text-indigo-600 hover:text-indigo-500 disabled:cursor-wait disabled:text-slate-400"
+			className="text-sm font-medium text-red-700 hover:text-red-800 disabled:cursor-wait disabled:text-slate-400"
 		>
-			X
+			<CircleX />
 		</button>
 	);
 }

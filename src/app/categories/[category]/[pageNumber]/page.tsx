@@ -13,9 +13,10 @@ export const generateStaticParams = async ({ params }: { params: { category: str
 	}
 };
 export const generateMetadata = async ({
-	params,
+	params, 
 }: {
 	params: { category: string; pageNumber: string };
+	
 }) => {
 	const category = await getProdcutsByCategoryBySlug(params.category);
 	if (!category) return;
@@ -31,8 +32,10 @@ export const generateMetadata = async ({
 };
 export default async function CategoryProductPage({
 	params,
+	searchParams
 }: {
 	params: { category: string; pageNumber: string };
+	searchParams: Record<string, string>;
 }) {
 	const category = await getProdcutsByCategoryBySlug(params.category);
 	if (!category) {
@@ -40,18 +43,18 @@ export default async function CategoryProductPage({
 	}
 	return (
 		<div>
-			<div className="bg-gray-100">
+			<div className="bg-pink-600 text-white">
 				<div className="mx-auto max-w-7xl px-8">
 					<div className="mx-auto py-8">
 						<h1 className="text-bold">{category.name}</h1>
-						<div className="py-2 text-center">{category.description}</div>
+						<div className="py-2">{category.description}</div>
 					</div>
 				</div>
 			</div>
 
 			<Suspense fallback={<Loader />}>
-				<div className="bg-white">
-					<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+				<div className="">
+					<div className="  mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
 						<ProductsList
 							products={category.products.slice(
 								4 * parseInt(params.pageNumber, 10) - 4,
@@ -63,6 +66,7 @@ export default async function CategoryProductPage({
 							currentPage={parseInt(params.pageNumber, 10)}
 							itemsPerPage={4}
 							totalProducts={category.products.length}
+							searchParams={searchParams}
 						/>
 					</div>
 				</div>

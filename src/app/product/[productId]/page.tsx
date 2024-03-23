@@ -55,27 +55,35 @@ export default async function SingleProductPage({ params }: { params: { productI
 	}
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center py-2">
-			<div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+			<div className="flex w-full max-w-screen-xl flex-1 flex-col items-center justify-center px-20 text-center">
 				<article>
-					<h1 className="text-6xl font-bold">{product?.name}</h1>
-					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+					<h1 className="my-8 py-4 text-6xl font-bold text-pink-600">{product?.name}</h1>
+					<div className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
 						<div>{product.images[0] && <ProductSingleImage {...product.images[0]} />}</div>
 						<form action={addProductToCartAction}>
 							<ProductListItemDescription product={product} />
-							<p className="mt-1 text-sm text-gray-500">{product.description}</p>
+							<p className="my-3  pb-4 text-left text-sm">{product.description}</p>
 							<AddToCartButton />
 						</form>
 					</div>
 				</article>
-				<aside>
+				<aside className="mt-16">
 					<Suspense fallback={<Loader />}>
 						<SuggestedProducts />
 					</Suspense>
 					<Suspense fallback={<Loader />}>
-						<RatingForm product={product} />
-						{product.reviews.slice(4).map((review) => (
-							<ReviewSingle key={review.id} review={review} />
-						))}
+						<div className="flex flex-col items-start justify-between pt-10 md:flex-row">
+							<div className="md:w-1/3">
+								<RatingForm product={product} />
+							</div>
+
+							<div className="mt-10 flex flex-col md:w-1/2">
+								<h4 className="text-2xl">Reviews</h4>
+								{product.reviews.slice(-4).map((review) => (
+									<ReviewSingle key={review.id} review={review} />
+								))}
+							</div>
+						</div>
 					</Suspense>
 				</aside>
 			</div>

@@ -19,7 +19,10 @@ export const ProductListItem = ({ product }: ProductListItemProps) => {
 			<Link href={`/product/${product.id}`} key={product.id}>
 				<div>
 					{product.images[0] && <ProductCoverImage {...product.images[0]} />}
-					<ProductListItemDescription product={product} />
+					<div className="my-3">
+						<ProductListItemDescription product={product} />
+					</div>
+
 					{product.rating && <ProductRatingItem rating={product.rating} />}
 				</div>
 			</Link>

@@ -24,13 +24,14 @@ export const SearchBar = () => {
 	}, [searchQuery]);
 
 	return (
-		<div className="text-gray-900">
+		<div className="text-pink-600">
 			<input
 				type="search"
 				name="search"
 				value={searchQuery}
 				onChange={handleInputChange}
 				placeholder="Search..."
+				className="h-8 w-64 rounded-md border-pink-600 bg-blue-900 px-2 text-white transition-all duration-150 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-600"
 			/>
 		</div>
 	);

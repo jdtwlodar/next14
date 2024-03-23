@@ -6,21 +6,32 @@ interface PaginationProps {
 	totalProducts: number;
 	itemsPerPage: number;
 	url: string;
+	searchParams: Record<string, string>;
 }
 
-export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: PaginationProps) => {
+// add search params to url
+export const Pagination = ({
+	currentPage,
+	totalProducts,
+	itemsPerPage,
+	url,
+	searchParams,
+}: PaginationProps) => {
 	const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
 	const renderPageLinks = () => {
 		const pageLinks = [];
 		for (let i = 1; i <= totalPages; i++) {
-			const link = `${url}${i}`;
+			const link =
+				searchParams && searchParams.orderBy
+					? `${url}${i}?orderBy=${searchParams.orderBy}&order=${searchParams.order}`
+					: `${url}${i}`;
 			pageLinks.push(
 				<li key={i}>
 					<ActiveLink
 						href={link as Route<string>}
-						className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-						activeClassName="border-indigo-500 text-indigo-600"
+						className={`${currentPage === i ? "border-indigo-500 text-pink-600" : ""} inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium hover:border-gray-300 hover:text-gray-700`}
+						activeClassName="border-indigo-500 text-pink-600"
 						exact={true}
 					>
 						{i}
@@ -32,58 +43,8 @@ export const Pagination = ({ currentPage, totalProducts, itemsPerPage, url }: Pa
 	};
 
 	return (
-		<nav aria-label="pagination" role="navigation" className="mx-auto my-4">
-			<ul className="mx-auto flex justify-center space-x-2">
-				{currentPage > 1 && (
-					<>
-						<li>
-							<ActiveLink
-								className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-								activeClassName="border-indigo-500 text-indigo-600"
-								href={`${url}1` as Route<string>}
-								exact={true}
-							>
-								{"|<"}
-							</ActiveLink>
-						</li>
-						<li>
-							<ActiveLink
-								className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-								activeClassName="border-indigo-500 text-indigo-600"
-								href={`${url}${currentPage - 1}` as Route<string>}
-								exact={true}
-							>
-								{"<"}
-							</ActiveLink>
-						</li>
-					</>
-				)}
-				{renderPageLinks()}
-				{currentPage < totalPages && (
-					<li>
-						<ActiveLink
-							className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-							activeClassName="border-indigo-500 text-indigo-600"
-							href={`${url}${currentPage + 1}` as Route<string>}
-							exact={true}
-						>
-							{">"}
-						</ActiveLink>
-					</li>
-				)}
-				{currentPage < totalPages && (
-					<li>
-						<ActiveLink
-							className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-							activeClassName="border-indigo-500 text-indigo-600"
-							href={`${url}${totalPages}` as Route<string>}
-							exact={true}
-						>
-							{">|"}
-						</ActiveLink>
-					</li>
-				)}
-			</ul>
+		<nav aria-label="pagination" role="navigation" className="mx-auto my-6">
+			<ul className="mx-auto flex justify-center space-x-2">{renderPageLinks()}</ul>
 		</nav>
 	);
 };

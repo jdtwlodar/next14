@@ -29,10 +29,10 @@ export default async function ProductsPage({
 	);
 
 	return (
-		<div className="bg-white">
-			<ProductListSortSelect sort={`${searchParams.orderBy} ${searchParams.order}`} />
-			<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-				<h1 className="text-2xl font-bold tracking-tight text-gray-900">our products</h1>
+		<div className="mx-auto">
+			<div className="min-height-[50vh]  mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+				<h1 className="my-8 py-4 text-4xl font-bold text-pink-600">our products</h1>
+				<ProductListSortSelect sort={`${searchParams.orderBy} ${searchParams.order}`} />
 				<ProductsList
 					products={product.data.slice(
 						4 * parseInt(params.pageNumber, 10) - 4,
@@ -44,6 +44,7 @@ export default async function ProductsPage({
 					currentPage={pageNumber}
 					itemsPerPage={4}
 					totalProducts={product.data.length}
+					searchParams={searchParams}
 				/>
 			</div>
 		</div>
