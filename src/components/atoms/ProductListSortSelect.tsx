@@ -52,7 +52,11 @@ export const ProductListSortSelect = ({ sort }: { sort: string }) => {
 	};
 
 	return (
-		<select value={sort} onChange={onSelect}>
+		<select
+			className="w-54 mt-1 block rounded-md border-pink-600  bg-blue-900 px-3 py-2  text-sm font-light text-white shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+			value={sort}
+			onChange={onSelect}
+		>
 			<option value="">None</option>
 			{options.map((opt) => (
 				<option data-testid="sort-by-price" key={opt} value={opt}>
@@ -67,55 +71,3 @@ export const ProductListSortSelect = ({ sort }: { sort: string }) => {
 		</select>
 	);
 };
-/* import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useCallback, useState } from "react";
-
-export const ProductListSortSelect = () => {
-	const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-
-  const createQueryString = useCallback(
-	(name: string, value: string) => {
-	  const params = new URLSearchParams(searchParams.toString())
-	  params.set(name, value)
- 
-	  return params.toString()
-	},
-	[searchParams]
-  )
-
-
-	const handleChangeSort = async (e: ChangeEvent<HTMLSelectElement>) => {
-
-		if (e.target.value === "no-sort") {
-			router.push(`/products/1`);
-		} else {
-			router.push(pathname + '?sort = ' + createQueryString('sort', 'asc')) + 
-		}
-	};
-	return (
-
-
-		<div>
-			<label htmlFor="sort"></label>
-			<select onChange={handleChangeSort} className="arrow-down-bg block w-48 cursor-pointer appearance-none rounded-md border-gray-300 px-2 py-1 text-sm font-light shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 lg:mt-1">
-				<option value="weightedRating↓" data-testid="sort-by-rating">
-					Rating (High to Low)
-				</option>
-				<option value="weightedRating↑" data-testid="sort-by-rating">
-					Rating (Low to High)
-				</option>
-				<option value="name↑">Name (A-Z)</option>
-				<option value="name↓">Name (Z-A)</option>
-				<option value="price↑" data-testid="sort-by-price">
-					Price (Low to High)
-				</option>
-				<option value="price↓" data-testid="sort-by-price">
-					Price (High to Low)
-				</option>
-			</select>
-		</div>
-	);
-};
- */

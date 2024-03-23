@@ -13,9 +13,10 @@ export const generateStaticParams = async ({ params }: { params: { category: str
 	}
 };
 export const generateMetadata = async ({
-	params,
+	params, 
 }: {
 	params: { category: string; pageNumber: string };
+	
 }) => {
 	const category = await getProdcutsByCategoryBySlug(params.category);
 	if (!category) return;
@@ -31,8 +32,10 @@ export const generateMetadata = async ({
 };
 export default async function CategoryProductPage({
 	params,
+	searchParams
 }: {
 	params: { category: string; pageNumber: string };
+	searchParams: Record<string, string>;
 }) {
 	const category = await getProdcutsByCategoryBySlug(params.category);
 	if (!category) {
@@ -63,6 +66,7 @@ export default async function CategoryProductPage({
 							currentPage={parseInt(params.pageNumber, 10)}
 							itemsPerPage={4}
 							totalProducts={category.products.length}
+							searchParams={searchParams}
 						/>
 					</div>
 				</div>

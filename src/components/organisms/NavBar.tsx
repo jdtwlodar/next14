@@ -51,7 +51,7 @@ export const NavBar = async () => {
 						activeClassName={"text-pink-600 "}
 					>
 						<ShoppingBag size={24} />
-						<span>{cart && <sup>{allItemsQuantity}</sup>}</span>
+						<span>{cart && <sup className="p-[2px]">{allItemsQuantity}</sup>}</span>
 					</ActiveLink>
 				</div>
 			</div>

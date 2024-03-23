@@ -18,10 +18,10 @@ export default async function SearchProductsPage({
 	}
 	return (
 		<div className="">
-			<div className="  mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-				<h2 className="text-2xl font-bold tracking-tight text-gray-900">
+			<div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+				<h1 className="my-8 py-4 text-4xl font-bold text-pink-600">
 					Found {products.data.length} items for phrase <i>{searchParams.query}</i>
-				</h2>
+				</h1>
 				<Suspense fallback={<Loader />}>
 					<ProductsList products={products.data.slice(-6)} />
 				</Suspense>

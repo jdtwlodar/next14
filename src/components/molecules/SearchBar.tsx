@@ -24,7 +24,7 @@ export const SearchBar = () => {
 	}, [searchQuery]);
 
 	return (
-		<div className="text-gray-900">
+		<div className="text-pink-600">
 			<input
 				type="search"
 				name="search"
