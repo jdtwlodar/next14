@@ -1,11 +1,6 @@
 import { Star } from "lucide-react";
-import { type ProductsListItemFragmentFragment } from "@/gql/graphql";
 
-type ProductListItemDescriptionProps = {
-	product: ProductsListItemFragmentFragment;
-};
-
-export const ProductRatingItem = ({ product: { rating } }: ProductListItemDescriptionProps) => {
+export const ProductRatingItem = ({ rating }: { rating: number }) => {
 	const ratingCounter = rating || 0;
 	const ratingParseToInt = ~~ratingCounter;
 

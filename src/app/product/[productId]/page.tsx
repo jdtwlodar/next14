@@ -11,6 +11,7 @@ import { SuggestedProducts } from "@/components/organisms/SuggestedProducts";
 import { addProductToCart } from "@/api/cart";
 import { getOrCreateCart, changeItemQuantity } from "@/api/actions";
 import { RatingForm } from "@/components/organisms/RatingForm";
+import { ReviewSingle } from "@/components/molecules/ReviewSingle";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -56,9 +57,6 @@ export default async function SingleProductPage({ params }: { params: { productI
 		<div className="flex min-h-screen flex-col items-center justify-center py-2">
 			<div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
 				<article>
-					<Suspense fallback={<Loader />}>
-						<RatingForm product={product} />
-					</Suspense>
 					<h1 className="text-6xl font-bold">{product?.name}</h1>
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 						<div>{product.images[0] && <ProductSingleImage {...product.images[0]} />}</div>
@@ -72,6 +70,12 @@ export default async function SingleProductPage({ params }: { params: { productI
 				<aside>
 					<Suspense fallback={<Loader />}>
 						<SuggestedProducts />
+					</Suspense>
+					<Suspense fallback={<Loader />}>
+						<RatingForm product={product} />
+						{product.reviews.slice(4).map((review) => (
+							<ReviewSingle key={review.id} review={review} />
+						))}
 					</Suspense>
 				</aside>
 			</div>

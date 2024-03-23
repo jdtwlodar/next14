@@ -2,6 +2,7 @@
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
+
 import { revalidateTag } from "next/cache";
 import { executeGraphql } from "@/api/gql";
 import {
@@ -111,6 +112,5 @@ export async function ProductAddReviewAction(
 	"use server";
 
 	await addSingleProductReview(name, content, email, productId, rating, headline);
-
 	revalidateTag("product");
 }
